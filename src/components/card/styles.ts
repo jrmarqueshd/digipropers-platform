@@ -1,6 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const CardContainer = styled.div<{ background: string; borderColor: string; borderSize: string }>`
+export const CardContainer = styled.div<{
+	background: string;
+	borderColor: string;
+	borderSize: string;
+	onClick?: VoidFunction;
+}>`
 	border-radius: 4px;
 	box-sizing: border-box;
 	border: 1px solid rgba(255, 255, 255, 0.08);
@@ -81,4 +86,10 @@ export const CardContainer = styled.div<{ background: string; borderColor: strin
 			height: 100%;
 		}
 	}
+
+	${({ onClick }) =>
+		onClick &&
+		css`
+			cursor: pointer;
+		`}
 `;

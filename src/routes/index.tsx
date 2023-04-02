@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, matchPath } from 'react-router-dom';
 import { Layout } from '../layouts/default';
 import pages from './pages';
 import { RouteProtector } from './ProtectorRoutes';
@@ -8,7 +8,7 @@ export default function RoutesProvider() {
 	const location = useLocation();
 
 	const atualAuthPageMemo = useMemo(() => {
-		return pages.auth.find((page) => page.path === location.pathname);
+		return pages.auth.find((page) => matchPath(page.path, location.pathname));
 	}, [location.pathname]);
 
 	return (

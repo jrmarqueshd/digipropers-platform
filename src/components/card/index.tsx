@@ -9,12 +9,14 @@ export default function Card({
 	hiddenBorders,
 	borderColor,
 	borderSize,
+	onClick,
 }: {
 	background: string;
 	children: React.ReactNode;
 	hiddenBorders?: typeof borders;
 	borderColor: string;
 	borderSize: string;
+	onClick?: VoidFunction;
 }) {
 	const borderToShow = useMemo(() => {
 		return borders.reduce((accum: string[], atual: string) => {
@@ -27,7 +29,13 @@ export default function Card({
 	}, [hiddenBorders]);
 
 	return (
-		<CardContainer borderColor={borderColor} className="card" borderSize={borderSize} background={background}>
+		<CardContainer
+			onClick={onClick}
+			borderColor={borderColor}
+			className="card"
+			borderSize={borderSize}
+			background={background}
+		>
 			<div className="background" />
 
 			{borderToShow.map((border) => (

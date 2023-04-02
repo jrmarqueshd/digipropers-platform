@@ -7,6 +7,7 @@ import DgLogo from '/images/dg-logo.png';
 import MpLogo from '/images/mp-logo.png';
 import FwLogo from '/images/fw-logo.png';
 import { Page } from './interfaces';
+import Training from '../pages/trainings/training';
 
 const pages: Record<string, Page[]> = {
 	unAuth: [
@@ -27,6 +28,11 @@ const pages: Record<string, Page[]> = {
 			layout: LayoutPlatform,
 			logo: MpLogo,
 			hiddenHeaderLogo: true,
+		},
+		{
+			path: '/treinamentos/:training_id',
+			element: Training,
+			logo: MpLogo,
 		},
 	],
 };
