@@ -2,17 +2,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
 
 export function LoginPage() {
-  let navigate = useNavigate();
-  let location = useLocation();
-  let auth = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const auth = useAuth();
 
-  let from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    let formData = new FormData(event.currentTarget);
-    let username = formData.get("username") as string;
+    const formData = new FormData(event.currentTarget);
+    const username = formData.get("username") as string;
 
     auth.signin(username, () => {
       navigate(from, { replace: true });

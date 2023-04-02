@@ -11,10 +11,9 @@ export default function RoutesProvider() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<LoginPage />} />
         <Route
-          path="/protected"
+          path="/"
           element={
             <RequireAuth>
               <Dashboard />
