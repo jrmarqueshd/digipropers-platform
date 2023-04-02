@@ -11,12 +11,9 @@ export function LoginPage() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
-    const username = formData.get("username") as string;
+    auth.signin();
 
-    auth.signin(username, () => {
-      navigate(from, { replace: true });
-    });
+    navigate(from, { replace: true });
   }
 
   return (

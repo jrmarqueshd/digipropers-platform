@@ -1,11 +1,15 @@
+import manageStorage from "../commons/helpers/manageStorage";
+
 export const fakeAuthProvider = {
-  isAuthenticated: false,
-  signin(callback: VoidFunction) {
-    fakeAuthProvider.isAuthenticated = true;
-    setTimeout(callback, 100); // fake async
+  isAuthenticated: manageStorage().get('STORAGE_TOKEN_KEY'),
+  signin(token: string, callback: VoidFunction) {
+    fakeAuthProvider.isAuthenticated = token;
+    manageStorage().set('STORAGE_TOKEN_KEY', token);
+    setTimeout(callback, 100);
   },
   signout(callback: VoidFunction) {
-    fakeAuthProvider.isAuthenticated = false;
+    fakeAuthProvider.isAuthenticated = '';
+    manageStorage().remove('STORAGE_TOKEN_KEY');
     setTimeout(callback, 100);
   },
 };
