@@ -1,0 +1,3 @@
+export const STORAGE_PREFIX = '@DGP:';
+export const STORAGE_TOKEN_KEY = `${STORAGE_PREFIX}TOKEN`;
+export const STORAGE_USER_KEY = `${STORAGE_PREFIX}USER`;

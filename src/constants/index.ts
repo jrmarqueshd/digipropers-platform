@@ -1,8 +1,5 @@
-// storage
-const STORAGE_PREFIX = "@DGP:"
-const STORAGE_TOKEN_KEY = `${STORAGE_PREFIX}TOKEN`;
-const STORAGE_USER_KEY = `${STORAGE_PREFIX}USER`;
+import * as links from './links';
+import * as storageTokens from './storages';
+import * as styles from './styles';
 
-const storageTokens = { STORAGE_PREFIX, STORAGE_TOKEN_KEY, STORAGE_USER_KEY }
-
-export { storageTokens };
+export { storageTokens, links, styles };
