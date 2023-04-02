@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.header`
 
 	@media screen {
 		@media (min-width: ${styles.medias.md}) {
-			padding: 47px 15px;
+			padding: 47px 15px 15px;
 		}
 	}
 `;
@@ -19,7 +19,7 @@ export const HeaderContainer = styled.div`
 	gap: 25px;
 	width: 100%;
 	max-width: 1166px;
-	margin: 0 auto 16px;
+	margin: 0 auto;
 
 	& > * {
 		display: flex;
@@ -58,7 +58,6 @@ export const HeaderLogoBreadcrumbsItem = styled(LinkComponent)`
 
 	font-family: 'Mukta';
 	font-style: normal;
-	font-weight: 500;
 	font-size: 17.7185px;
 	line-height: 29px;
 	letter-spacing: -0.02em;
@@ -107,7 +106,6 @@ export const HeaderUserMenuTrigger = styled.button`
 	color: #ffffff;
 	font-family: 'Mukta';
 	font-style: normal;
-	font-weight: 500;
 	font-size: 17.7185px;
 	line-height: 29px;
 	letter-spacing: -0.02em;
@@ -184,7 +182,6 @@ export const HeaderUserMenuDropdownMenu = styled.div`
 	font-size: 18px;
 	font-family: 'Mukta';
 	font-style: normal;
-	font-weight: 500;
 	font-size: 17.7185px;
 	line-height: 29px;
 	letter-spacing: -0.02em;

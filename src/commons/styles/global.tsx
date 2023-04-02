@@ -10,8 +10,12 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Mukta', sans-serif;
+    font-family: 'Mukta', sans-serif !important;
     font-weight: 400;
+  }
+
+  img {
+    display: block;
   }
 
   html, body, div, span, applet, object, iframe,

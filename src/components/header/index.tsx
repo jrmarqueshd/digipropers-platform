@@ -20,8 +20,9 @@ import {
 import { links } from '../../constants';
 import HeaderCenterRender from './HeaderCenterRender';
 
-export default function Header() {
+export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo?: boolean }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 	const { user, signout } = useAuth();
 
 	return (
@@ -33,7 +34,7 @@ export default function Header() {
 					</HeaderLogoBreadcrumbsItem>
 				</HeaderLogoBreadcrumbs>
 				<HeaderLogoContainer>
-					<HeaderCenterRender />
+					<HeaderCenterRender hiddenLogo={hiddenLogo} logo={logo} />
 				</HeaderLogoContainer>
 				<HeaderUserMenu>
 					<HeaderUserMenuTrigger type="button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
