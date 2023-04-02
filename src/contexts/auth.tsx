@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import manageStorage from "../commons/helpers/manageStorage";
 import { AuthContextType } from "../contexts/interfaces";
 import { fakeAuthProvider } from "./helpers";
@@ -12,11 +13,18 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<any>(manageStorage().get('STORAGE_USER_KEY'));
 
+  const navigate = useNavigate();
+
   const token = fakeAuthProvider.isAuthenticated;
+
+  const fetchUserData = (data: any) => {
+    manageStorage().set('STORAGE_USER_KEY', data);
+    setUser(data);
+  }
 
   const signin = () => {
     return fakeAuthProvider.signin('d56as156das5d1as156=', () => {
-      setUser({
+      fetchUserData({
         id: "117156ff-6cde-48cd-bbc0-d1e1e24076db",
         name: "Fulano de tal",
         email: "nodetal@email.com",
@@ -37,20 +45,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         ],
         created_at: "2023-03-28T07:22:36.029Z"
       });
+      navigate('/', { replace: true });
+      navigate(0);
     });
   };
 
   const signout = () => {
     return fakeAuthProvider.signout(() => {
       setUser(null);
+      manageStorage().remove('STORAGE_USER_KEY');
+      navigate('/login', { replace: true });
     });
   };
 
   const value = { user, token, signin, signout };
-
-  useEffect(()=>{
-    manageStorage().set('STORAGE_USER_KEY', user);
-  }, [user])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

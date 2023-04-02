@@ -1,18 +1,19 @@
 import { storageTokens } from "../../constants";
+import jsonParse from "./jsonParse";
 
 type KeysTypes = keyof typeof storageTokens;
 
 const manageStorage = () => {
   return {
     get(key: KeysTypes) {
-      return localStorage.getItem(key);
+      return localStorage.getItem(jsonParse(key));
     },
-    set(key: KeysTypes, data: any) {
-      localStorage.setItem(key, JSON.stringify(data));
+    set(key: KeysTypes, data: any, ignoreStringify?: boolean) {
+      localStorage.setItem(key, ignoreStringify ? data : JSON.stringify(data));
       return manageStorage();
     },
     remove(key: KeysTypes){
-      localStorage.getItem(key);
+      localStorage.removeItem(key);
       return manageStorage();
     }
   } 

@@ -5,19 +5,26 @@ import {
 import { Layout } from "../layouts/default";
 import { Dashboard } from "../pages/dashboard";
 import { LoginPage } from "../pages/login";
-import { RequireAuth } from "./ProtectorRoutes";
+import { RouteProtector } from "./ProtectorRoutes";
 
 export default function RoutesProvider() {
   return (
     <Routes>
+      <Route 
+        path="/login" 
+        element={
+          <RouteProtector protectType="unAuth">
+            <LoginPage />
+          </RouteProtector>
+        } 
+      />
       <Route element={<Layout />}>
-        <Route path="/login" element={<LoginPage />} />
         <Route
           path="/"
           element={
-            <RequireAuth>
+            <RouteProtector protectType="auth">
               <Dashboard />
-            </RequireAuth>
+            </RouteProtector>
           }
         />
       </Route>

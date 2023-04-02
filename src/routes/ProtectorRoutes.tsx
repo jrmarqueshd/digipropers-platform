@@ -1,12 +1,9 @@
-import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../contexts/auth";
+import { Navigate } from "react-router-dom";
+import { needRedirect } from "./helpers";
 
-export function RequireAuth({ children }: { children: JSX.Element }) {
-  const auth = useAuth();
-  const location = useLocation();
-
-  if (!auth.user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+export function RouteProtector({ children, protectType }: { children: JSX.Element, protectType: "auth" | "unAuth" }) {
+  if (needRedirect[protectType]) {
+    return <Navigate to={needRedirect[protectType]} replace />;
   }
 
   return children;
