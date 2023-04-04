@@ -13,6 +13,7 @@ import { MpDashboard } from '../pages/mpDashboard';
 import { generateServicePages } from './helpers';
 import { B3Dashboard } from '../pages/b3Dashboard';
 import { BpDashboard } from '../pages/bpDashboard';
+import BpOperation from '../pages/bpDashboard/bpOperation';
 
 const pages: Record<string, Page[]> = {
 	unAuth: [
@@ -50,6 +51,12 @@ const pages: Record<string, Page[]> = {
 			layout: LayoutPlatform,
 			logo: BpLogo,
 			hiddenHeaderLogo: true,
+		},
+		{
+			path: '/bot-prosper/:bot_id',
+			element: BpOperation,
+			logo: BpLogo,
+			hiddenHeaderLogo: false,
 		},
 	],
 };
