@@ -6,6 +6,7 @@ export const LayoutPlatformContainer = styled.div`
 
 	img.hero-logo {
 		margin: 0 auto 15px;
+		max-width: 324px;
 	}
 
 	@media screen {

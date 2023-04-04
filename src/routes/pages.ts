@@ -5,15 +5,14 @@ import { LoginPage } from '../pages/login';
 import DgLogo from '/images/dg-logo.png';
 import MpLogo from '/images/mp-logo.png';
 import FwLogo from '/images/fw-logo.png';
-import DbLogo from '/images/db-logo.png';
+import BpLogo from '/images/db-logo.png';
 import B3Logo from '/images/b3-logo.png';
 import { Page } from './interfaces';
 import { FwDashboard } from '../pages/fwDashboard';
-import Trainings from '../pages/trainings';
-import Training from '../pages/trainings/training';
 import { MpDashboard } from '../pages/mpDashboard';
 import { generateServicePages } from './helpers';
 import { B3Dashboard } from '../pages/b3Dashboard';
+import { BpDashboard } from '../pages/bpDashboard';
 
 const pages: Record<string, Page[]> = {
 	unAuth: [
@@ -45,6 +44,13 @@ const pages: Record<string, Page[]> = {
 			element: B3Dashboard,
 			logo: B3Logo,
 		}),
+		{
+			path: '/bot-prosper',
+			element: BpDashboard,
+			layout: LayoutPlatform,
+			logo: BpLogo,
+			hiddenHeaderLogo: true,
+		},
 	],
 };
 
