@@ -30,7 +30,7 @@ const pages: Record<string, Page[]> = {
 			hiddenHeaderLogo: true,
 		},
 		{
-			path: '/treinamentos/:training_id',
+			path: '/treinamentos/:training_id/:lesson',
 			element: Training,
 			logo: MpLogo,
 		},

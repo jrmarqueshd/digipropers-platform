@@ -6,10 +6,13 @@ export const CourseAssetsContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	text-align: center;
-	color: #fff;
+	color: rgba(255, 255, 255, 0.75);
+	font-size: 20px;
+	line-height: 33px;
 	gap: 20px;
 	padding-bottom: 60px;
-	margin-top: auto;
+	max-width: 1166px;
+	margin: auto auto 0;
 
 	.actions-container {
 		display: flex;
@@ -29,6 +32,9 @@ export const CourseAssetsContainer = styled.div`
 			border-radius: 5px;
 			text-align: center;
 			transition: all 300ms ease-in-out;
+			color: rgba(255, 255, 255, 0.75);
+			font-size: 14px;
+			line-height: 14px;
 			color: rgba(255, 255, 255, 0.75);
 
 			img {

@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
    License: none (public domain)
   */
 
-  * {
+  *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;

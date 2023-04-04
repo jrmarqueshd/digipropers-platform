@@ -9,7 +9,7 @@ export default function Trainings() {
 		<TrainingsContainer>
 			{Array.from({ length: 4 }, (i) => Number(i)).map((i) => (
 				<Card
-					onClick={() => navigate('/treinamentos/d516as6d1sa6das16d')}
+					onClick={() => navigate('/treinamentos/d516as6d1sa6das16d/1')}
 					borderSize="113px"
 					borderColor="#CE3439"
 					background="https://i0.wp.com/startup-studio.jp/wp-content/uploads/2021/01/phil-hearing-nfs0n3_d2xy-unsplash.jpg?fit=250%2C300&ssl=1"

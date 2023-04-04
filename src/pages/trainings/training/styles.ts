@@ -41,12 +41,14 @@ export const TrainingContainer = styled.div`
 export const TrainingContentContainer = styled.div`
 	display: flex;
 	flex-direction: column-reverse;
+	gap: 16px;
 	max-width: 1166px;
+	width: 100%;
 	margin: 0 auto;
 	padding: 0 15px 64px;
 
 	.description {
-		max-width: 670px;
+		max-width: 653px;
 
 		h1 {
 			font-family: 'Karla';
@@ -67,6 +69,9 @@ export const TrainingContentContainer = styled.div`
 			color: rgba(255, 255, 255, 0.6);
 			white-space: pre-line;
 			line-height: 25px;
+			font-size: 18px;
+			line-height: 25px;
+			font-weight: 200;
 		}
 	}
 
@@ -84,6 +89,10 @@ export const TrainingContentContainer = styled.div`
 				h2 {
 					margin-bottom: 54px;
 				}
+			}
+
+			.progress {
+				min-width: 300px;
 			}
 		}
 	}

@@ -1,17 +1,18 @@
 import CourseAssets from '../../../components/courseAssets';
+import CourseProgress from '../../../components/courseProgress';
 import { TrainingContainer, TrainingContentContainer } from './styles';
 
 export default function Training() {
 	return (
 		<TrainingContainer>
-			{/* <div className="video-container">
+			<div className="video-container">
 				<iframe
 					src="https://www.youtube.com/embed/msizPweg3kE"
 					frameBorder="0"
 					allow="accelerometer; autoplay; encrypted-media; gyroscope;"
 					allowFullScreen
 				></iframe>
-			</div> */}
+			</div>
 
 			<TrainingContentContainer>
 				<div className="description">
@@ -25,7 +26,9 @@ export default function Training() {
               E, partindo do pressuposto que você não quer cair em falsas promessas e realmente deseja aprender a fazer Day Trade do jeito certo, preparamos algumas dicas para te ajudar. Aqui você vai entender:`}
 					</p>
 				</div>
-				<div className="progress"></div>
+				<div className="progress">
+					<CourseProgress />
+				</div>
 			</TrainingContentContainer>
 
 			<CourseAssets />
