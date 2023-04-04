@@ -9,7 +9,7 @@ import B3CardBg from '/images/b3-card-bg.png';
 
 export const cardsMenu = [
 	{
-		goTo: '/',
+		goTo: '/fabrica-de-win',
 		logo: FwLogo,
 		background: FwCardBg,
 		disabled: false,

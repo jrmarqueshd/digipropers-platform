@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import CourseAssets from '../../../components/courseAssets';
 import CourseProgress from '../../../components/courseProgress';
 import { useHeader } from '../../../contexts/header';
@@ -9,12 +10,16 @@ import ArrowLeftIcon from '/icons/icon-arrow-right.png';
 export default function Training() {
 	const { setBreadcrumbs } = useHeader();
 
+	const location = useLocation();
+
+	const [_, base] = location.pathname.split('/');
+
 	useEffect(() => {
 		setBreadcrumbs([
 			{
 				icon: ArrowLeftIcon,
 				label: 'treinamentos',
-				goTo: '/treinamentos',
+				goTo: `${base}/treinamentos`,
 			},
 			{
 				icon: ArrowLeftIcon,
