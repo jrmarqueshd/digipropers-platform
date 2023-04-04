@@ -12,6 +12,8 @@ import { FwDashboard } from '../pages/fwDashboard';
 import Trainings from '../pages/trainings';
 import Training from '../pages/trainings/training';
 import { MpDashboard } from '../pages/mpDashboard';
+import { generateServicePages } from './helpers';
+import { B3Dashboard } from '../pages/b3Dashboard';
 
 const pages: Record<string, Page[]> = {
 	unAuth: [
@@ -28,44 +30,21 @@ const pages: Record<string, Page[]> = {
 			logo: DgLogo,
 			hiddenHeaderLogo: true,
 		},
-		{
-			path: '/fabrica-de-win',
+		...generateServicePages({
+			basePath: '/fabrica-de-win',
 			element: FwDashboard,
-			layout: LayoutPlatform,
 			logo: FwLogo,
-			hiddenHeaderLogo: true,
-		},
-		{
-			path: '/fabrica-de-win/treinamentos',
-			element: Trainings,
-			layout: LayoutPlatform,
-			logo: FwLogo,
-			hiddenHeaderLogo: true,
-		},
-		{
-			path: '/fabrica-de-win/treinamentos/:training_id/:lesson',
-			element: Training,
-			logo: FwLogo,
-		},
-		{
-			path: '/metodo-prosper',
+		}),
+		...generateServicePages({
+			basePath: '/metodo-prosper',
 			element: MpDashboard,
-			layout: LayoutPlatform,
 			logo: MpLogo,
-			hiddenHeaderLogo: true,
-		},
-		{
-			path: '/metodo-prosper/treinamentos',
-			element: Trainings,
-			layout: LayoutPlatform,
-			logo: MpLogo,
-			hiddenHeaderLogo: true,
-		},
-		{
-			path: '/metodo-prosper/treinamentos/:training_id/:lesson',
-			element: Training,
-			logo: MpLogo,
-		},
+		}),
+		...generateServicePages({
+			basePath: '/b3-pro',
+			element: B3Dashboard,
+			logo: B3Logo,
+		}),
 	],
 };
 

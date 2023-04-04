@@ -10,6 +10,7 @@ export default function Trainings() {
 	const borderColor = {
 		'/fabrica-de-win/treinamentos': '#A7CB22',
 		'/metodo-proper/treinamentos': '#CE3439',
+		'/b3-pro/treinamentos': '#2B9BD7',
 	};
 
 	return (

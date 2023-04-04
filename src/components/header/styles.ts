@@ -170,7 +170,7 @@ export const HeaderUserMenuDropdown = styled.div`
 	background-color: #212121;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	padding: 12px 0;
-	z-index: 1;
+	z-index: 300;
 	top: 31px;
 	right: 0;
 	flex-direction: column;
