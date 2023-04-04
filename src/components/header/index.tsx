@@ -22,11 +22,14 @@ import HeaderCenterRender from './HeaderCenterRender';
 import { useHeader } from '../../contexts/header';
 import { textEllipsis } from '../../commons/helpers/textEllipsis';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import { useLocation } from 'react-router-dom';
 
 export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo?: boolean }) {
 	const isLaptop = useMediaQuery(`(min-width: ${styles.medias.xl})`);
 
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const location = useLocation();
 
 	const { user, signout } = useAuth();
 	const { breadcrumbs } = useHeader();
@@ -34,16 +37,18 @@ export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo
 	return (
 		<HeaderWrapper>
 			<HeaderContainer>
-				<HeaderLogoBreadcrumbs>
-					<HeaderLogoBreadcrumbsItem to="/">
-						<img src={HomeIcon} alt="Go to home" /> Home
-					</HeaderLogoBreadcrumbsItem>
-					{breadcrumbs.map(({ goTo, icon, label }) => (
-						<HeaderLogoBreadcrumbsItem className="custom-breadcrumbs" {...(goTo ? { to: goTo } : { as: 'div' })}>
-							<img src={icon} alt={`Go to ${label}`} /> {textEllipsis(label, !isLaptop ? 11 : 22)}
+				{location.pathname !== '/' && (
+					<HeaderLogoBreadcrumbs>
+						<HeaderLogoBreadcrumbsItem to="/">
+							<img src={HomeIcon} alt="Go to home" /> Home
 						</HeaderLogoBreadcrumbsItem>
-					))}
-				</HeaderLogoBreadcrumbs>
+						{breadcrumbs.map(({ goTo, icon, label }) => (
+							<HeaderLogoBreadcrumbsItem className="custom-breadcrumbs" {...(goTo ? { to: goTo } : { as: 'div' })}>
+								<img src={icon} alt={`Go to ${label}`} /> {textEllipsis(label, !isLaptop ? 11 : 22)}
+							</HeaderLogoBreadcrumbsItem>
+						))}
+					</HeaderLogoBreadcrumbs>
+				)}
 				<HeaderLogoContainer>
 					<HeaderCenterRender hiddenLogo={hiddenLogo} logo={logo} />
 				</HeaderLogoContainer>

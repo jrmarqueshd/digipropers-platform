@@ -5,6 +5,7 @@ export const CardContainer = styled.div<{
 	borderColor: string;
 	borderSize: string;
 	onClick?: VoidFunction;
+	disabled?: boolean;
 }>`
 	border-radius: 4px;
 	box-sizing: border-box;
@@ -72,6 +73,10 @@ export const CardContainer = styled.div<{
 		z-index: 10;
 	}
 
+	.locked-icon {
+		display: none;
+	}
+
 	&:hover {
 		.background {
 			filter: grayscale(0%);
@@ -91,5 +96,34 @@ export const CardContainer = styled.div<{
 		onClick &&
 		css`
 			cursor: pointer;
+		`}
+
+	${({ disabled, borderSize }) =>
+		disabled &&
+		css`
+			cursor: not-allowed;
+			filter: grayscale(100%);
+
+			.locked-icon {
+				display: block;
+				position: absolute;
+				transform: translate(-50%, -50%);
+				left: 50%;
+				top: 50%;
+			}
+
+			&:hover {
+				.background {
+					filter: grayscale(0%);
+				}
+
+				.top-right-border,
+				.top-left-border,
+				.bottom-right-border,
+				.bottom-left-border {
+					width: ${borderSize};
+					height: ${borderSize};
+				}
+			}
 		`}
 `;
