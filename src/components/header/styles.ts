@@ -1,5 +1,5 @@
 import { Link as LinkComponent } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { styles } from '../../constants';
 
 export const HeaderWrapper = styled.header`
@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.header`
 
 	@media screen {
 		@media (min-width: ${styles.medias.md}) {
-			padding: 47px 15px 15px;
+			padding: 47px 15px;
 		}
 	}
 `;
@@ -48,6 +48,13 @@ export const HeaderContainer = styled.div`
 
 export const HeaderLogoBreadcrumbs = styled.nav`
 	display: flex;
+	gap: 10px;
+
+	@media screen {
+		@media (min-width: ${styles.medias.xl}) {
+			gap: 16px;
+		}
+	}
 `;
 
 export const HeaderLogoBreadcrumbsItem = styled(LinkComponent)`
@@ -67,12 +74,33 @@ export const HeaderLogoBreadcrumbsItem = styled(LinkComponent)`
 	opacity: 0.5;
 	transition: opacity 300ms ease-in-out;
 
+	${({ to }) =>
+		!to &&
+		css`
+			cursor: default;
+			opacity: 1;
+
+			img {
+				opacity: 0.5;
+			}
+		`}
+
+	&.custom-breadcrumbs {
+		display: none;
+	}
+
 	&:hover {
 		opacity: 1;
 	}
 
 	@media screen {
-		@media (min-width: ${styles.medias.md}) {
+		@media (min-width: ${styles.medias.lg}) {
+			&.custom-breadcrumbs {
+				display: flex;
+			}
+		}
+
+		@media (min-width: ${styles.medias.xl}) {
 			gap: 16px;
 		}
 	}

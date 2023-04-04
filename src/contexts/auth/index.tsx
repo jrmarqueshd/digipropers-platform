@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import manageStorage from '../commons/helpers/manageStorage';
-import { AuthContextType } from '../contexts/interfaces';
+import manageStorage from '../../commons/helpers/manageStorage';
+import { AuthContextType } from './interfaces';
 import { fakeAuthProvider } from './helpers';
 
 const AuthContext = React.createContext<AuthContextType>(null!);

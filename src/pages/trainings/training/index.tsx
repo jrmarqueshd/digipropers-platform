@@ -1,8 +1,28 @@
+import { useEffect } from 'react';
 import CourseAssets from '../../../components/courseAssets';
 import CourseProgress from '../../../components/courseProgress';
+import { useHeader } from '../../../contexts/header';
 import { TrainingContainer, TrainingContentContainer } from './styles';
 
+import ArrowLeftIcon from '/icons/icon-arrow-right.png';
+
 export default function Training() {
+	const { setBreadcrumbs } = useHeader();
+
+	useEffect(() => {
+		setBreadcrumbs([
+			{
+				icon: ArrowLeftIcon,
+				label: 'treinamentos',
+				goTo: '/treinamentos',
+			},
+			{
+				icon: ArrowLeftIcon,
+				label: 'Lorem ipsum dolor sit amet',
+			},
+		]);
+	}, []);
+
 	return (
 		<TrainingContainer>
 			<div className="video-container">

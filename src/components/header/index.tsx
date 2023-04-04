@@ -17,13 +17,19 @@ import {
 	HeaderWrapper,
 	HeaderUserMenuDropdownMenuLink,
 } from './styles';
-import { links } from '../../constants';
+import { links, styles } from '../../constants';
 import HeaderCenterRender from './HeaderCenterRender';
+import { useHeader } from '../../contexts/header';
+import { textEllipsis } from '../../commons/helpers/textEllipsis';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo?: boolean }) {
+	const isLaptop = useMediaQuery(`(min-width: ${styles.medias.xl})`);
+
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const { user, signout } = useAuth();
+	const { breadcrumbs } = useHeader();
 
 	return (
 		<HeaderWrapper>
@@ -32,6 +38,11 @@ export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo
 					<HeaderLogoBreadcrumbsItem to="/">
 						<img src={HomeIcon} alt="Go to home" /> Home
 					</HeaderLogoBreadcrumbsItem>
+					{breadcrumbs.map(({ goTo, icon, label }) => (
+						<HeaderLogoBreadcrumbsItem className="custom-breadcrumbs" {...(goTo ? { to: goTo } : { as: 'div' })}>
+							<img src={icon} alt={`Go to ${label}`} /> {textEllipsis(label, !isLaptop ? 11 : 22)}
+						</HeaderLogoBreadcrumbsItem>
+					))}
 				</HeaderLogoBreadcrumbs>
 				<HeaderLogoContainer>
 					<HeaderCenterRender hiddenLogo={hiddenLogo} logo={logo} />
