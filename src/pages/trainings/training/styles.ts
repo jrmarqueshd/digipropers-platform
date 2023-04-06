@@ -42,7 +42,7 @@ export const TrainingContentContainer = styled.div`
 	display: flex;
 	flex-direction: column-reverse;
 	gap: 16px;
-	max-width: 1166px;
+	max-width: ${styles.containerWidth};
 	width: 100%;
 	margin: 0 auto;
 	padding: 0 15px 64px;

@@ -5,4 +5,5 @@ export type Page = {
 	hiddenHeader?: boolean;
 	hiddenHeaderLogo?: boolean;
 	logo?: string;
+	title?: string;
 };

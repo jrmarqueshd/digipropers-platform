@@ -18,7 +18,7 @@ export const HeaderContainer = styled.div`
 	align-items: center;
 	gap: 25px;
 	width: 100%;
-	max-width: 1166px;
+	max-width: ${styles.containerWidth};
 	margin: 0 auto;
 
 	& > * {

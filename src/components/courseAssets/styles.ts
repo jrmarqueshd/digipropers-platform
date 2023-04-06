@@ -11,7 +11,7 @@ export const CourseAssetsContainer = styled.div`
 	line-height: 33px;
 	gap: 20px;
 	padding-bottom: 60px;
-	max-width: 1166px;
+	max-width: ${styles.containerWidth};
 	margin: auto auto 0;
 
 	.actions-container {

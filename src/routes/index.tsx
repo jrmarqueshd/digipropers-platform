@@ -36,9 +36,9 @@ export default function RoutesProvider() {
 					/>
 				}
 			>
-				{pages.auth.map(({ element: Element, layout: SubLayout, path, logo }) =>
+				{pages.auth.map(({ element: Element, layout: SubLayout, path, logo, title }) =>
 					SubLayout ? (
-						<Route key={path} element={<SubLayout logo={logo} />}>
+						<Route key={path} element={<SubLayout logo={logo} title={title} />}>
 							<Route
 								path={path}
 								element={

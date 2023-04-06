@@ -14,7 +14,7 @@ export const cardsMenu = [
 		external: true,
 	},
 	{
-		goTo: '/',
+		goTo: '/live/d45asdas456d1',
 		title: 'Ao Vivo',
 		background: FwLiveBg,
 		disabled: false,

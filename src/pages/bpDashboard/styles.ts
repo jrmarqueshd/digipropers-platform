@@ -9,7 +9,7 @@ export const BpDashboardContainer = styled.div`
 	gap: 16px;
 	color: #ffffff;
 	width: 100%;
-	max-width: 1166px;
+	max-width: ${styles.containerWidth};
 	margin: 0 auto 64px;
 
 	@media screen {

@@ -3,7 +3,7 @@ import FwTrainingsBg from '/images/fw-trainings-bg.png';
 
 export const cardsMenu = [
 	{
-		goTo: '/ao-vivo',
+		goTo: '/live/4dasd1asd4561',
 		title: 'Ao Vivo',
 		background: FwLiveBg,
 		disabled: false,

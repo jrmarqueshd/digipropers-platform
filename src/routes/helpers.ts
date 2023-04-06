@@ -1,5 +1,6 @@
 import manageStorage from '../commons/helpers/manageStorage';
 import { LayoutPlatform } from '../layouts/platform';
+import Live from '../pages/live';
 import Trainings from '../pages/trainings';
 import Training from '../pages/trainings/training';
 import { Page } from './interfaces';
@@ -13,7 +14,8 @@ export const generateServicePages = ({
 	basePath,
 	logo,
 	element,
-}: Pick<Page, 'logo' | 'element'> & { basePath: `/${string}` }) => {
+	title,
+}: Pick<Page, 'logo' | 'element' | 'title'> & { basePath: `/${string}` }) => {
 	return [
 		{
 			path: basePath,
@@ -21,6 +23,7 @@ export const generateServicePages = ({
 			layout: LayoutPlatform,
 			logo: logo,
 			hiddenHeaderLogo: true,
+			title: title,
 		},
 		{
 			path: `${basePath}/treinamentos`,
@@ -28,11 +31,20 @@ export const generateServicePages = ({
 			layout: LayoutPlatform,
 			logo: logo,
 			hiddenHeaderLogo: true,
+			title: title,
 		},
 		{
 			path: `${basePath}/treinamentos/:training_id/:lesson`,
 			element: Training,
 			logo: logo,
+			title: title,
+		},
+		{
+			path: `${basePath}/live/:training_id`,
+			element: Live,
+			layout: LayoutPlatform,
+			logo: logo,
+			title: 'Live',
 		},
 	];
 };

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const ButtonContainer = styled.button`
+export const ButtonContainer = styled.button<{ variant: 'primary' | 'secondary' }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -19,4 +19,10 @@ export const ButtonContainer = styled.button`
 	&:active {
 		opacity: 0.8;
 	}
+
+	${({ variant }) =>
+		variant === 'secondary' &&
+		css`
+			background: #a7cb22;
+		`}
 `;
