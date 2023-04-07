@@ -1,7 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth';
 
-export function LoginPage() {
+import DgLogo from '/images/dg-logo.png';
+import Input from '../../components/input';
+import Checkbox from '../../components/checkbox';
+import { LoginCard, LoginContainer } from './styles';
+import Button from '../../components/button';
+
+export default function Login() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const auth = useAuth();
@@ -17,15 +23,20 @@ export function LoginPage() {
 	}
 
 	return (
-		<div>
-			<p>You must log in to view the page at {from}</p>
+		<LoginContainer>
+			<LoginCard>
+				<img src={DgLogo} alt="Logo" />
 
-			<form onSubmit={handleSubmit}>
-				<label>
-					Username: <input name="username" type="text" />
-				</label>{' '}
-				<button type="submit">Login</button>
-			</form>
-		</div>
+				<Input type="email" label="Email" placeholder="email@email.com" />
+				<Input type="password" label="Senha" placeholder="********" />
+				<a className="forgot-password" href="/recuperar-senha">
+					Esqueceu sua senha?
+				</a>
+
+				<Checkbox label="aceitar termos" errorMessage="" />
+
+				<Button onClick={handleSubmit}>Entrar</Button>
+			</LoginCard>
+		</LoginContainer>
 	);
 }

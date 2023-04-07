@@ -1,6 +1,6 @@
 import { LayoutPlatform } from '../layouts/platform';
 import { Dashboard } from '../pages/dashboard';
-import { LoginPage } from '../pages/login';
+import Login from '../pages/login';
 
 import DgLogo from '/images/dg-logo.png';
 import MpLogo from '/images/mp-logo.png';
@@ -20,7 +20,7 @@ const pages: Record<string, Page[]> = {
 	unAuth: [
 		{
 			path: '/login',
-			element: LoginPage,
+			element: Login,
 		},
 	],
 	auth: [
