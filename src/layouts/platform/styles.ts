@@ -5,12 +5,12 @@ export const LayoutPlatformContainer = styled.div`
 	padding: 15px;
 
 	img.hero-logo,
-	h1 {
+	.custom-title {
 		margin: 0 auto 15px;
 		max-width: 324px;
 	}
 
-	h1 {
+	.custom-title {
 		text-align: center;
 		font-weight: 500;
 		font-size: 24px;
@@ -25,7 +25,7 @@ export const LayoutPlatformContainer = styled.div`
 		@media (min-width: ${styles.medias.md}) {
 			padding: 58px 15px 15px;
 
-			h1,
+			.custom-title,
 			img.hero-logo {
 				margin: 0 auto 81px;
 			}

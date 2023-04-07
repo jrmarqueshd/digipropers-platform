@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const ButtonContainer = styled.button<{ variant: 'primary' | 'secondary' }>`
+export const ButtonContainer = styled.button<{ dynamicColor?: string; secondary?: boolean }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -11,6 +11,7 @@ export const ButtonContainer = styled.button<{ variant: 'primary' | 'secondary' 
 	text-align: center;
 	color: #121212;
 	background: #ffffff;
+	border: 0;
 	box-shadow: 0px 5.33533px 27.5659px rgba(255, 255, 255, 0.16);
 	border-radius: 3.55689px;
 	cursor: pointer;
@@ -20,9 +21,18 @@ export const ButtonContainer = styled.button<{ variant: 'primary' | 'secondary' 
 		opacity: 0.8;
 	}
 
-	${({ variant }) =>
-		variant === 'secondary' &&
+	${({ dynamicColor }) =>
+		dynamicColor &&
 		css`
-			background: #a7cb22;
+			background: ${dynamicColor};
+		`}
+
+	${({ secondary }) =>
+		secondary &&
+		css`
+			background: transparent;
+			border: 1px solid #ffffff;
+			border-radius: 4px;
+			color: #ffffff;
 		`}
 `;

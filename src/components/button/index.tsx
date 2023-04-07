@@ -3,11 +3,19 @@ import { ButtonContainer } from './styles';
 export default function Button({
 	loading,
 	children,
-	variant,
+	dynamicColor,
+	secondary,
+	...props
 }: {
 	children: React.ReactNode;
 	loading?: boolean;
-	variant: 'primary' | 'secondary';
+	dynamicColor?: string;
+	secondary?: boolean;
+	[x: string]: any;
 }) {
-	return <ButtonContainer variant={variant}>{!loading ? children : 'loading...'}</ButtonContainer>;
+	return (
+		<ButtonContainer dynamicColor={dynamicColor} secondary={secondary} {...props}>
+			{!loading ? children : 'loading...'}
+		</ButtonContainer>
+	);
 }

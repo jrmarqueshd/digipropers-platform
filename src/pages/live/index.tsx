@@ -5,14 +5,25 @@ import Chat from '../../components/chat';
 import Button from '../../components/button';
 
 import ViewIcon from '/icons/view-icon.png';
+import { useLocation } from 'react-router-dom';
 
 export default function Live() {
 	const { setTitle, setIgnoreLogo } = useHero();
+
+	const location = useLocation();
+
+	const [_, base] = location.pathname.split('/');
 
 	useEffect(() => {
 		setIgnoreLogo(true);
 		setTitle('Nome da live');
 	}, []);
+
+	const themeColor = {
+		'fabrica-de-win': '#A7CB22',
+		'metodo-prosper': '#CE3439',
+		'b3-pro': '#2B9BD7',
+	};
 
 	return (
 		<LiveContainer>
@@ -32,7 +43,7 @@ export default function Live() {
 
 			<LiveContentContainer>
 				<div className="live-assets">
-					<Button variant="secondary">Remover delay da live</Button>
+					<Button dynamicColor={(themeColor as any)[base as any]}>Remover delay da live</Button>
 
 					<div className="watchers-amount">
 						<img src={ViewIcon} alt="watchers-count" />

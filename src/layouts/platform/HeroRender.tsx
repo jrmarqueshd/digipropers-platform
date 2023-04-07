@@ -8,7 +8,7 @@ export default function HeroRender({ logo, title }: { logo?: string; title?: str
 	}
 
 	if (dynamicTitle || title) {
-		return <h1>{dynamicTitle || title}</h1>;
+		return <h1 className="custom-title">{dynamicTitle || title}</h1>;
 	}
 
 	return null;
