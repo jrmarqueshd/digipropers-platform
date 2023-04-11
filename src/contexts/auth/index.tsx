@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import manageStorage from '../../commons/helpers/manageStorage';
 import { AuthContextType } from './interfaces';
 import { fakeAuthProvider } from './helpers';
+import { getUser, loginSession } from '../../services/internal/requests';
+import { LoginData } from '../../services/internal/interfaces';
 
 const AuthContext = React.createContext<AuthContextType>(null!);
 
@@ -17,34 +19,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 	const token = fakeAuthProvider.isAuthenticated;
 
-	const fetchUserData = (data: any) => {
-		manageStorage().set('STORAGE_USER_KEY', data);
-		setUser(data);
+	const fetchUserData = async () => {
+		const user = await getUser();
+		manageStorage().set('STORAGE_USER_KEY', user);
+		setUser(user);
 	};
 
-	const signin = () => {
-		return fakeAuthProvider.signin('d56as156das5d1as156=', () => {
-			fetchUserData({
-				id: '117156ff-6cde-48cd-bbc0-d1e1e24076db',
-				name: 'Fulano de tal',
-				email: 'nodetal@email.com',
-				broker_id: 'id-broker-user-lucas',
-				role: 'CUSTOMER',
-				terms: true,
-				products: [
-					{
-						id: 'ABC123',
-						name: 'Fabrica de win',
-						expiration: '2023-04-30T07:22:36.029Z',
-					},
-					{
-						id: 'ABC456',
-						name: 'Fabrica PRODUTO',
-						expiration: '2023-03-03T07:22:36.029Z',
-					},
-				],
-				created_at: '2023-03-28T07:22:36.029Z',
-			});
+	const signin = async (data: LoginData) => {
+		const token = await loginSession(data);
+
+		if (!token) return;
+
+		return fakeAuthProvider.signin(token, () => {
+			fetchUserData();
 			navigate('/', { replace: true });
 			navigate(0);
 		});
@@ -59,7 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		});
 	};
 
-	const value = { user, token, signin, signout };
+	const value = { user, token, signin, signout, fetchUserData };
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

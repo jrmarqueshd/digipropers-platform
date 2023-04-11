@@ -67,7 +67,7 @@ export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo
 								<img src={TimeIconGreen} alt="Expiration time" />
 								{getPlatformExpiration(
 									// TODO change fixed ID to dynamic
-									user?.products?.find((product) => product.id === 'ABC123'),
+									user?.products?.find((product) => product.id === 'd4sa5d1asd61asd'),
 								)}{' '}
 							</div>
 

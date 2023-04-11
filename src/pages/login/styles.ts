@@ -15,7 +15,7 @@ export const LoginContainer = styled.div`
 	}
 `;
 
-export const LoginCard = styled.div`
+export const LoginCard = styled.form`
 	width: 100%;
 	max-width: 523px;
 	padding: 40px 30px 60px;

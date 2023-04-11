@@ -21,6 +21,8 @@ export const InputContainer = styled.div<{ errorMessage?: boolean; disabled?: bo
 		css`
 			margin-bottom: 16px;
 
+			outline-color: #ce3439 !important;
+
 			.error-message {
 				color: #ce3439;
 				font-size: 14px;

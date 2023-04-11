@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const ButtonContainer = styled.button<{ dynamicColor?: string; secondary?: boolean }>`
+export const ButtonContainer = styled.button<{ dynamicColor?: string; secondary?: boolean; loading?: boolean }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -20,6 +20,24 @@ export const ButtonContainer = styled.button<{ dynamicColor?: string; secondary?
 	&:active {
 		opacity: 0.8;
 	}
+
+	${({ loading }) =>
+		loading &&
+		css`
+			cursor: wait;
+			color: transparent;
+
+			.loading {
+				position: absolute;
+			}
+		`}
+
+	${({ disabled }) =>
+		disabled &&
+		css`
+			opacity: 0.6 !important;
+			cursor: not-allowed;
+		`}
 
 	${({ dynamicColor }) =>
 		dynamicColor &&

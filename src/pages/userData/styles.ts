@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { styles } from '../../constants';
 
-export const UserDataContainer = styled.div`
+export const UserDataContainer = styled.form`
 	width: 100%;
 	max-width: 335px;
 	margin: 0 auto;

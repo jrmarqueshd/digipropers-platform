@@ -1,3 +1,4 @@
+import Loading from '../loading';
 import { ButtonContainer } from './styles';
 
 export default function Button({
@@ -14,8 +15,9 @@ export default function Button({
 	[x: string]: any;
 }) {
 	return (
-		<ButtonContainer dynamicColor={dynamicColor} secondary={secondary} {...props}>
-			{!loading ? children : 'loading...'}
+		<ButtonContainer dynamicColor={dynamicColor} secondary={secondary} loading={loading} {...props}>
+			{loading && <Loading size="30px" stroke="4px" color={!dynamicColor && !secondary ? '#000' : undefined} />}
+			{children}
 		</ButtonContainer>
 	);
 }
