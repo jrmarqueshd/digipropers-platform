@@ -5,6 +5,8 @@ import { styles } from '../../constants';
 export const HeaderWrapper = styled.header`
 	height: auto;
 	padding: 15px;
+	position: relative;
+	z-index: 1001;
 
 	@media screen {
 		@media (min-width: ${styles.medias.md}) {

@@ -102,4 +102,12 @@ export const LiveContentContainer = styled.div`
 			font-weight: 200;
 		}
 	}
+
+	@media screen {
+		@media (min-width: ${styles.medias.xl}) {
+			.live-assets {
+				max-width: 766px;
+			}
+		}
+	}
 `;

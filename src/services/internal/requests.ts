@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import api from '.';
-import { LoginData, User } from './interfaces';
+import { Live, LoginData, Product, User, UserProduct } from './interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
 
 export const loginSession = async (data: LoginData) => {
@@ -26,10 +26,8 @@ export const getUser = async () => {
 export const updateUser = async ({
 	name,
 	password,
-	confirm_password,
 }: Partial<Pick<User, 'name'>> & {
 	password?: string;
-	confirm_password?: string;
 }) => {
 	const user = manageStorage().get('STORAGE_USER_KEY') as User;
 
@@ -46,6 +44,40 @@ export const updateUser = async ({
 		toast.success('Dados do usuário atualizados com sucesso!');
 
 		return response.data.user as User;
+	} catch {
+		toast.error('Ocorreu um erro! Por favor, tente novamente.');
+	}
+};
+
+export const getProducts = async () => {
+	try {
+		const response = await api.get(`/products`);
+
+		return response.data.product as Product[];
+	} catch {
+		toast.error('Ocorreu um erro! Por favor, tente novamente.');
+	}
+};
+
+export const getUserProducts = async () => {
+	try {
+		const response = await api.get(`/products/user`);
+
+		manageStorage().set('STORAGE_USER_PRODUCTS', response.data.product);
+
+		return response.data.product as UserProduct[];
+	} catch {
+		toast.error('Ocorreu um erro! Por favor, tente novamente.');
+	}
+};
+
+export const getLive = async () => {
+	const productSelected = manageStorage().get('STORAGE_PRODUCT_SELECTED') as Product;
+
+	try {
+		const response = await api.get(`lives/${productSelected.id}`);
+
+		return response.data?.[0] as Live;
 	} catch {
 		toast.error('Ocorreu um erro! Por favor, tente novamente.');
 	}

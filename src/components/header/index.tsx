@@ -63,13 +63,13 @@ export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo
 							<div className="header-user-menu-dropdown-info">
 								<img src={UserIconGreen} alt="Your Profile" /> {user?.email}
 							</div>
-							<div className="header-user-menu-dropdown-info">
+							{/* <div className="header-user-menu-dropdown-info">
 								<img src={TimeIconGreen} alt="Expiration time" />
 								{getPlatformExpiration(
 									// TODO change fixed ID to dynamic
 									user?.products?.find((product) => product.id === 'd4sa5d1asd61asd'),
 								)}{' '}
-							</div>
+							</div> */}
 
 							<div className="header-user-menu-separator" />
 

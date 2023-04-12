@@ -1,32 +1,112 @@
+import { useEffect, useRef, useState } from 'react';
+import { BsPinAngleFill } from 'react-icons/bs';
+import manageStorage from '../../commons/helpers/manageStorage';
+import socket from '../../services/chat';
 import { ChatContainer, ChatFormContainer, ChatMessageContainer, ChatMessageItem } from './styles';
 
 import SubmitIcon from '/icons/submit-icon.png';
+import { User } from '../../services/internal/interfaces';
+import { Message } from '../../services/chat/interfaces';
 
-export default function Chat() {
+import messagesMock from './mock.json';
+import jsonParse from '../../commons/helpers/jsonParse';
+
+export default function Chat({ liveId, color }: { liveId: string; color: string }) {
+	const socketClient = socket(manageStorage().get('STORAGE_USER_KEY'), liveId);
+
+	const [isConnected, setIsConnected] = useState(socketClient.connected);
+	const [fixedMessage, setFixedMessages] = useState('Lorem ipsum dolor sit amet. Dolor sit amet lorem dolor sit amer.');
+	const [messages, setMessages] = useState<Message[]>(jsonParse(messagesMock));
+
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		function onConnect() {
+			console.log('CONECTADO', socketClient.id);
+			setIsConnected(true);
+		}
+
+		function onDisconnect() {
+			console.log('DESCONECTADO');
+			setIsConnected(false);
+		}
+
+		function onFixedMessage(message: any) {
+			console.log(message);
+			setFixedMessages(message);
+		}
+
+		function onMessage(message: Message[]) {
+			console.log(message);
+			setMessages(message);
+		}
+
+		socketClient.on('connect', onConnect);
+		socketClient.on('disconnect', onDisconnect);
+		socketClient.on('chat.message', (data) => onMessage(data));
+		socketClient.on('fixed.message', (data) => onFixedMessage(data));
+
+		return () => {
+			socketClient.off('connect', onConnect);
+			socketClient.off('disconnect', onDisconnect);
+		};
+	}, []);
+
+	function handleSubmit(e: React.FormEvent) {
+		e.preventDefault();
+
+		const { id, name, avatar } = manageStorage().get('STORAGE_USER_KEY') as User;
+		const message = inputRef.current?.value;
+
+		const author = {
+			id,
+			name,
+			avatar,
+			status: 'online',
+			blocked: false,
+		};
+
+		socketClient.emit('sendMessage', {
+			author,
+			trainingId: liveId,
+			message,
+		});
+	}
+
 	return (
 		<ChatContainer>
 			<h3>Chat ao vivo</h3>
 
 			<ChatMessageContainer>
-				{Array.from({ length: 2 }, (i) => Number(i)).map((i) => (
-					<ChatMessageItem key={i}>
-						<img className="profile-img" src="https://github.com/jrmarqueshd.png" alt="user image" />
+				{fixedMessage && (
+					<ChatMessageItem className="fixed">
+						<div className="message">
+							<div className="message-content">{fixedMessage}</div>
+
+							<div className="pin">
+								<BsPinAngleFill color={color} />
+							</div>
+						</div>
+					</ChatMessageItem>
+				)}
+
+				{messages?.map(({ author, message }, index) => (
+					<ChatMessageItem key={index}>
+						<img className="profile-img" src={author.avatar} alt="user image" />
 
 						<div className="chat-arrow" />
 
 						<div className="message">
-							<div className="message-title">Junior Marques</div>
-							<div className="message-content">
-								Boa noite, galera! Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-							</div>
+							<div className="message-title">{author.name}</div>
+							<div className="message-content">{message}</div>
 						</div>
 					</ChatMessageItem>
 				))}
 			</ChatMessageContainer>
 
-			<ChatFormContainer onSubmit={(e) => e.preventDefault()}>
-				<input type="text" placeholder="digite sua mensagem" />
-				<button type="submit">
+			<ChatFormContainer onSubmit={handleSubmit}>
+				<input ref={inputRef} type="text" placeholder="digite sua mensagem" disabled={!isConnected} />
+				<button type="submit" disabled={!isConnected || !inputRef.current?.value}>
 					<img src={SubmitIcon} alt="submit icon" />
 				</button>
 			</ChatFormContainer>

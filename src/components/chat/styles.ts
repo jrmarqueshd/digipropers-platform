@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { styles } from '../../constants';
+import { css } from '@emotion/react';
 
 export const ChatContainer = styled.div`
 	background: #212121;
@@ -17,6 +18,12 @@ export const ChatContainer = styled.div`
 		padding-bottom: 11px;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 		text-transform: uppercase;
+	}
+
+	@media screen {
+		@media (min-width: ${styles.medias.xl}) {
+			width: 368px;
+		}
 	}
 `;
 
@@ -78,7 +85,7 @@ export const ChatMessageItem = styled.div`
 			padding-top: 0;
 			padding-bottom: 0;
 			line-height: 16px;
-			color: #000000;
+			color: #fff;
 			background: #474747;
 		}
 
@@ -87,6 +94,30 @@ export const ChatMessageItem = styled.div`
 			line-height: 19px;
 			color: #ffffff;
 			padding-right: 20px;
+		}
+	}
+
+	&.fixed {
+		position: sticky;
+		top: -30px;
+		left: 0px;
+		right: 0px;
+		z-index: 10;
+		margin-left: -18px;
+		margin-right: -18px;
+
+		.message {
+			gap: 0;
+			min-height: 40px;
+			width: 100%;
+			padding-right: 15px;
+		}
+
+		.pin {
+			position: absolute;
+			right: 15px;
+			top: 50%;
+			transform: translateY(-50%);
 		}
 	}
 `;
@@ -116,6 +147,11 @@ export const ChatFormContainer = styled.form`
 			color: #e7eef0;
 			opacity: 0.2;
 		}
+
+		&:disabled {
+			opacity: 0.7;
+			cursor: not-allowed;
+		}
 	}
 
 	button {
@@ -130,6 +166,11 @@ export const ChatFormContainer = styled.form`
 
 		&:active {
 			opacity: 0.8;
+		}
+
+		&:disabled {
+			opacity: 0.7;
+			cursor: not-allowed;
 		}
 	}
 `;

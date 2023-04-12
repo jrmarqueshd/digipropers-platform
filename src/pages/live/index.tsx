@@ -1,19 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import { useHero } from '../../contexts/hero';
 import { LiveContainer, LiveContentContainer, LiveVideoContainer } from './styles';
 import Chat from '../../components/chat';
 import Button from '../../components/button';
 
 import ViewIcon from '/icons/view-icon.png';
-import { useLocation } from 'react-router-dom';
-import { getLiveInfos } from '../../services/youtube/requests';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getYouTubeLiveInfos } from '../../services/youtube/requests';
+import { Live as LiveType } from '../../services/internal/interfaces';
+import { getLive } from '../../services/internal/requests';
+import { useLoading } from '../../contexts/loading';
 
 export default function Live() {
 	const [viewers, setViewers] = useState(0);
+	const [live, setLive] = useState<LiveType>();
 	const [removeDelay, setRemoveDelay] = useState(9999);
 
+	const { loading, setLoading } = useLoading();
 	const { setTitle, setIgnoreLogo } = useHero();
 	const location = useLocation();
+	const navigate = useNavigate();
 	const [_, base] = location.pathname.split('/');
 
 	const themeColor = {
@@ -23,15 +30,28 @@ export default function Live() {
 	};
 
 	async function fetchLiveInfos() {
-		const response = await getLiveInfos('jfKfPfyJRdk');
+		const response = await getYouTubeLiveInfos('jfKfPfyJRdk');
 		const viewers = response.concurrentViewers;
 		setViewers(viewers);
 	}
 
 	useEffect(() => {
-		fetchLiveInfos();
-		setIgnoreLogo(true);
-		setTitle('Nome da live');
+		async function fetch() {
+			setIgnoreLogo(true);
+			setLoading(true);
+
+			const response = await getLive();
+
+			setLoading(false);
+
+			if (!response) return navigate(-1);
+
+			setLive(response);
+			setTitle(response.title);
+			fetchLiveInfos();
+		}
+
+		fetch();
 	}, []);
 
 	useEffect(() => {
@@ -40,19 +60,21 @@ export default function Live() {
 		return () => clearInterval(intervalId);
 	}, []);
 
+	if (!live) return null;
+
 	return (
 		<LiveContainer>
 			<LiveVideoContainer>
 				<div className="video-container">
 					<iframe
-						src={`https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&t${removeDelay}s`}
+						src={`https://www.youtube.com/embed/${live.hash}?autoplay=1&controls=0&t${removeDelay}s&rel=0`}
 						frameBorder="0"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowFullScreen
 					></iframe>
 				</div>
 				<div className="chat-container">
-					<Chat />
+					<Chat liveId={live.id} color={(themeColor as any)[base as any]} />
 				</div>
 			</LiveVideoContainer>
 
@@ -74,11 +96,7 @@ export default function Live() {
 				<div className="description">
 					<h2>uma breve descrição sobre a live</h2>
 
-					<p>
-						{`Está procurando uma forma de aprender a operar na Bolsa de Valores e aproveitar o melhor que o curto prazo pode oferecer? Se a resposta for sim, certamente você está naquele momento de pesquisar o melhor curso trader.\n
-              Ao longo desse conteúdo, você vai entender alguns detalhes para escolher o melhor curso trader para você. Vale ressaltar que isso é fundamental, afinal, o número de ofertas disponíveis, principalmente na internet, aumentou muito nos últimos anos.\n 
-              E, partindo do pressuposto que você não quer cair em falsas promessas e realmente deseja aprender a fazer Day Trade do jeito certo, preparamos algumas dicas para te ajudar. Aqui você vai entender:`}
-					</p>
+					<p>{live.description}</p>
 				</div>
 			</LiveContentContainer>
 		</LiveContainer>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import manageStorage from '../../commons/helpers/manageStorage';
 import { AuthContextType } from './interfaces';
 import { fakeAuthProvider } from './helpers';
-import { getUser, loginSession } from '../../services/internal/requests';
+import { getUser, getUserProducts, loginSession } from '../../services/internal/requests';
 import { LoginData } from '../../services/internal/interfaces';
 
 const AuthContext = React.createContext<AuthContextType>(null!);
@@ -30,8 +30,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 		if (!token) return;
 
-		return fakeAuthProvider.signin(token, () => {
-			fetchUserData();
+		return fakeAuthProvider.signin(token, async () => {
+			await fetchUserData();
+			await getUserProducts();
 			navigate('/', { replace: true });
 			navigate(0);
 		});

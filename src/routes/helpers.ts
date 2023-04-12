@@ -40,7 +40,7 @@ export const generateServicePages = ({
 			title: title,
 		},
 		{
-			path: `${basePath}/live/:training_id`,
+			path: `${basePath}/live`,
 			element: Live,
 			layout: LayoutPlatform,
 			logo: logo,

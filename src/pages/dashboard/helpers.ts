@@ -1,39 +1,30 @@
-import FwLogo from '/images/fw-logo.png';
-import FwCardBg from '/images/fw-card-bg.png';
-import MpLogo from '/images/mp-logo.png';
-import MpCardBg from '/images/mp-card-bg.png';
-import DbLogo from '/images/db-logo.png';
-import DbCardBg from '/images/db-card-bg.png';
-import B3Logo from '/images/b3-logo.png';
-import B3CardBg from '/images/b3-card-bg.png';
+import { slugify } from '../../commons/helpers/slugify';
+import { Product, UserProduct } from '../../services/internal/interfaces';
+import { CardsMenu } from './interfaces';
+import manageStorage from '../../commons/helpers/manageStorage';
+import { getProductAssets, productsAvailable } from '../../commons/helpers/getProductsAssets';
 
-export const cardsMenu = [
-	{
-		goTo: '/fabrica-de-win',
-		logo: FwLogo,
-		background: FwCardBg,
-		disabled: false,
-		borderColor: '#A7CB22',
-	},
-	{
-		goTo: '/',
-		logo: B3Logo,
-		background: B3CardBg,
-		disabled: true,
-		borderColor: '#2B9BD7',
-	},
-	{
-		goTo: '/',
-		logo: DbLogo,
-		background: DbCardBg,
-		disabled: true,
-		borderColor: '#9E6C0B',
-	},
-	{
-		goTo: '/',
-		logo: MpLogo,
-		background: MpCardBg,
-		disabled: true,
-		borderColor: '#CE3439',
-	},
-];
+const unavailableProducts = ['b3', 'bot', 'metodo'];
+
+export const factoryProductsList = (products: Product[]) => {
+	const userProducts = manageStorage().get('STORAGE_USER_PRODUCTS') as UserProduct[];
+
+	return products.map((product) => {
+		let formattedProduct = {};
+
+		productsAvailable.forEach((cardKey) => {
+			if (slugify(product.name).includes(cardKey)) {
+				const hasProduct = userProducts?.some?.((userProduct) => userProduct.id === product.id);
+
+				formattedProduct = {
+					...product,
+					...getProductAssets(cardKey as 'fabrica' | 'b3' | 'bot' | 'metodo'),
+					disabled: !hasProduct,
+					unavailable: unavailableProducts.includes(cardKey),
+				};
+			}
+		});
+
+		return formattedProduct;
+	}) as CardsMenu[];
+};

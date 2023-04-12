@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import api from '.';
 
-export const getLiveInfos = async (live_id: string) => {
+export const getYouTubeLiveInfos = async (live_id: string) => {
 	try {
 		const response = api
 			.get(`?part=liveStreamingDetails&id=${live_id}`)

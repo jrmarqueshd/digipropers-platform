@@ -14,7 +14,7 @@ export const cardsMenu = [
 		external: true,
 	},
 	{
-		goTo: '/live/d45asdas456d1',
+		goTo: '/live',
 		title: 'Ao Vivo',
 		background: FwLiveBg,
 		disabled: false,
@@ -29,7 +29,7 @@ export const cardsMenu = [
 		external: true,
 	},
 	{
-		goTo: '/',
+		goTo: 'https://track.deriv.com/_lnD5HbJt7kc-WNa_P_Nb_2Nd7ZgqdRLk/1',
 		title: 'Cadastro na corretora',
 		background: FwBrokerageBg,
 		disabled: false,
