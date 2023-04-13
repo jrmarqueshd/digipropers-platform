@@ -3,6 +3,7 @@ import { BsPinAngleFill } from 'react-icons/bs';
 import manageStorage from '../../commons/helpers/manageStorage';
 import socket from '../../services/chat';
 import { ChatContainer, ChatFormContainer, ChatMessageContainer, ChatMessageItem } from './styles';
+import { animateScroll } from 'react-scroll';
 
 import SubmitIcon from '/icons/submit-icon.png';
 import { User } from '../../services/internal/interfaces';
@@ -11,11 +12,13 @@ import { Message } from '../../services/chat/interfaces';
 import messagesMock from './mock.json';
 import jsonParse from '../../commons/helpers/jsonParse';
 
+import MalePlaceholder from '/images/male-placeholder.jpeg';
+
 export default function Chat({ liveId, color }: { liveId: string; color: string }) {
 	const socketClient = socket(manageStorage().get('STORAGE_USER_KEY'), liveId);
 
 	const [isConnected, setIsConnected] = useState(socketClient.connected);
-	const [fixedMessage, setFixedMessages] = useState('Lorem ipsum dolor sit amet. Dolor sit amet lorem dolor sit amer.');
+	const [fixedMessage, setFixedMessages] = useState<Message>();
 	const [messages, setMessages] = useState<Message[]>(jsonParse(messagesMock));
 
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -31,13 +34,12 @@ export default function Chat({ liveId, color }: { liveId: string; color: string 
 			setIsConnected(false);
 		}
 
-		function onFixedMessage(message: any) {
+		function onFixedMessage(message: Message) {
 			console.log(message);
 			setFixedMessages(message);
 		}
 
 		function onMessage(message: Message[]) {
-			console.log(message);
 			setMessages(message);
 		}
 
@@ -51,6 +53,14 @@ export default function Chat({ liveId, color }: { liveId: string; color: string 
 			socketClient.off('disconnect', onDisconnect);
 		};
 	}, []);
+
+	useEffect(() => {
+		animateScroll.scrollMore(999999, {
+			containerId: 'chat-messages',
+			duration: 500,
+			delay: 1000,
+		});
+	}, [messages]);
 
 	function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
@@ -77,11 +87,12 @@ export default function Chat({ liveId, color }: { liveId: string; color: string 
 		<ChatContainer>
 			<h3>Chat ao vivo</h3>
 
-			<ChatMessageContainer>
+			<ChatMessageContainer id="chat-messages">
 				{fixedMessage && (
 					<ChatMessageItem className="fixed">
+						<img className="profile-img" src={fixedMessage.author.avatar || MalePlaceholder} alt="user image" />
 						<div className="message">
-							<div className="message-content">{fixedMessage}</div>
+							<div className="message-content">{fixedMessage.message}</div>
 
 							<div className="pin">
 								<BsPinAngleFill color={color} />

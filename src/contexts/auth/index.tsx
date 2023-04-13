@@ -40,9 +40,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 	const signout = () => {
 		return fakeAuthProvider.signout(() => {
-			setUser(null);
-			manageStorage().remove('STORAGE_USER_KEY');
-			navigate('/login', { replace: true });
+			localStorage.clear();
 			navigate(0);
 		});
 	};

@@ -9,6 +9,7 @@ import { useLoading } from '../../contexts/loading';
 
 import ArrowLeftIcon from '/icons/icon-arrow-right.png';
 import { useHeader } from '../../contexts/header';
+import { toast } from 'react-toastify';
 
 const borderColor = {
 	'/fabrica-de-win/treinamento': '#A7CB22',
@@ -29,9 +30,13 @@ export default function Trainings() {
 			setLoading(true);
 			const response = await getTrainings();
 
-			if (response) {
-				setTrainings(response);
+			if (!response?.length) {
+				toast.info('Nenhum módulo do treinamento disponível');
+
+				return navigate(-1);
 			}
+
+			setTrainings(response);
 			setLoading(false);
 		}
 

@@ -86,7 +86,7 @@ export default function Training() {
 				</div>
 			</TrainingContentContainer>
 
-			<CourseAssets />
+			{/* <CourseAssets /> */}
 		</TrainingContainer>
 	);
 }

@@ -23,6 +23,7 @@ import { useHeader } from '../../contexts/header';
 import { textEllipsis } from '../../commons/helpers/textEllipsis';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { useLocation } from 'react-router-dom';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo?: boolean }) {
 	const isLaptop = useMediaQuery(`(min-width: ${styles.medias.xl})`);
@@ -53,17 +54,18 @@ export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo
 					<HeaderCenterRender hiddenLogo={hiddenLogo} logo={logo} />
 				</HeaderLogoContainer>
 				<HeaderUserMenu>
-					<HeaderUserMenuTrigger type="button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-						<img src={UserIcon} alt="Your Profile" />
-						<div className="user-display">
-							Olá, {user?.name?.split(' ')[0]}!{' '}
-							<img className={`chavron ${isMenuOpen ? 'open' : ''}`} src={ChevronDown} alt="Show more" />
-						</div>
-						<HeaderUserMenuDropdown onClick={(e) => e.stopPropagation()} className={isMenuOpen ? 'open' : undefined}>
-							<div className="header-user-menu-dropdown-info">
-								<img src={UserIconGreen} alt="Your Profile" /> {user?.email}
+					<OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
+						<HeaderUserMenuTrigger type="button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+							<img src={UserIcon} alt="Your Profile" />
+							<div onClick={() => setIsMenuOpen(false)} className="user-display">
+								Olá, {user?.name?.split(' ')[0]}!{' '}
+								<img className={`chavron ${isMenuOpen ? 'open' : ''}`} src={ChevronDown} alt="Show more" />
 							</div>
-							{/* <div className="header-user-menu-dropdown-info">
+							<HeaderUserMenuDropdown onClick={(e) => e.stopPropagation()} className={isMenuOpen ? 'open' : undefined}>
+								<div className="header-user-menu-dropdown-info">
+									<img src={UserIconGreen} alt="Your Profile" /> {user?.email}
+								</div>
+								{/* <div className="header-user-menu-dropdown-info">
 								<img src={TimeIconGreen} alt="Expiration time" />
 								{getPlatformExpiration(
 									// TODO change fixed ID to dynamic
@@ -71,19 +73,25 @@ export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo
 								)}{' '}
 							</div> */}
 
-							<div className="header-user-menu-separator" />
+								<div className="header-user-menu-separator" />
 
-							<HeaderUserMenuDropdownMenuLink to="/meus-dados/alterar-dados">
-								Alterar dados pessoais
-							</HeaderUserMenuDropdownMenuLink>
-							<HeaderUserMenuDropdownMenuLink as="a" href={links.WHATSAPP_DEPOSIT_LINK} target="_blank">
-								Depositar saldo
-							</HeaderUserMenuDropdownMenuLink>
-							<HeaderUserMenuDropdownMenuLink as="button" type="button" onClick={signout}>
-								Sair
-							</HeaderUserMenuDropdownMenuLink>
-						</HeaderUserMenuDropdown>
-					</HeaderUserMenuTrigger>
+								<HeaderUserMenuDropdownMenuLink onClick={() => setIsMenuOpen(false)} to="/meus-dados/alterar-dados">
+									Alterar dados pessoais
+								</HeaderUserMenuDropdownMenuLink>
+								<HeaderUserMenuDropdownMenuLink
+									onClick={() => setIsMenuOpen(false)}
+									as="a"
+									href={links.WHATSAPP_DEPOSIT_LINK}
+									target="_blank"
+								>
+									Depositar saldo
+								</HeaderUserMenuDropdownMenuLink>
+								<HeaderUserMenuDropdownMenuLink as="button" type="button" onClick={signout}>
+									Sair
+								</HeaderUserMenuDropdownMenuLink>
+							</HeaderUserMenuDropdown>
+						</HeaderUserMenuTrigger>
+					</OutsideClickHandler>
 				</HeaderUserMenu>
 			</HeaderContainer>
 		</HeaderWrapper>

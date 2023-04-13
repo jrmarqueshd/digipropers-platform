@@ -33,6 +33,7 @@ export const MpDashboardContainer = styled.div`
 			}
 
 			.menu-items {
+				margin-top: 15px;
 				.card {
 					max-width: 223px;
 				}

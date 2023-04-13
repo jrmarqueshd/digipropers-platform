@@ -18,6 +18,7 @@ export const TrainingsContainer = styled.div`
 	@media screen {
 		@media (min-width: ${styles.medias.md}) {
 			gap: 30px;
+			padding-top: 15px;
 
 			.card {
 				max-width: 273px;

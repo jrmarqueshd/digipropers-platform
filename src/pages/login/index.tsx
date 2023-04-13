@@ -9,7 +9,8 @@ import Checkbox from '../../components/checkbox';
 
 import { LoginCard, LoginContainer } from './styles';
 import Button from '../../components/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLoading } from '../../contexts/loading';
 
 const schema = z.object({
 	email: z.string().nonempty({ message: 'Campo obrigatório' }).email({ message: 'Informe um e-mail válido.' }),
@@ -22,6 +23,7 @@ export default function Login() {
 	const [isTermAccept, setTermAccept] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const auth = useAuth();
+	const { setLoading: setLoadingGlobal } = useLoading();
 	const {
 		register,
 		handleSubmit,
@@ -33,7 +35,7 @@ export default function Login() {
 	const loginUser = async (data: LoginSchemaData) => {
 		setLoading(true);
 		await auth.signin(data);
-		setLoading(false);
+		setLoadingGlobal(true);
 	};
 
 	return (

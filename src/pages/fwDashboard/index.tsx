@@ -7,15 +7,19 @@ import { getLive } from '../../services/internal/requests';
 import { Live, User } from '../../services/internal/interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
 import { ProductSelected } from '../dashboard/interfaces';
+import { useLoading } from '../../contexts/loading';
 
 export function FwDashboard() {
 	const [live, setLive] = useState<Live>();
 
+	const { setLoading: setLoadingGlobal } = useLoading();
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		setLoadingGlobal(true);
 		async function fetch() {
 			const response = await getLive();
+			setLoadingGlobal(false);
 			if (response) {
 				setLive(response);
 			}

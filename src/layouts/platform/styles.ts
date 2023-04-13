@@ -27,7 +27,7 @@ export const LayoutPlatformContainer = styled.div`
 
 			.custom-title,
 			img.hero-logo {
-				margin: 0 auto 81px;
+				margin: 0 auto 24px;
 			}
 		}
 	}

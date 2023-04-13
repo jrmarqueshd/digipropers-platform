@@ -98,13 +98,15 @@ export const ChatMessageItem = styled.div`
 	}
 
 	&.fixed {
+		background-color: rgb(33, 33, 33);
 		position: sticky;
 		top: -30px;
 		left: 0px;
 		right: 0px;
 		z-index: 10;
-		margin-left: -18px;
+		margin-left: -9px;
 		margin-right: -18px;
+		padding-bottom: 5px;
 
 		.message {
 			gap: 0;

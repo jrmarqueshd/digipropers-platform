@@ -6,20 +6,28 @@ import { useEffect, useState } from 'react';
 import { getProducts } from '../../services/internal/requests';
 import { Product } from '../../services/internal/interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
+import { useLoading } from '../../contexts/loading';
+import { useAuth } from '../../contexts/auth';
 
 export function Dashboard() {
 	const [products, setProducts] = useState<Product[]>([]);
+
 	const navigate = useNavigate();
+	const { setLoading: setLoadingGlobal } = useLoading();
+	const auth = useAuth();
 
 	useEffect(() => {
 		manageStorage().remove('STORAGE_PRODUCT_SELECTED');
 
 		async function fetch() {
+			setLoadingGlobal(true);
 			const response = await getProducts();
 
-			if (response) {
-				setProducts(response);
-			}
+			setLoadingGlobal(false);
+
+			if (!response) return auth.signout();
+
+			setProducts(response);
 		}
 
 		fetch();
