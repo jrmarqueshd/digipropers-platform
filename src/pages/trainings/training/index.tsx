@@ -10,14 +10,15 @@ import ArrowLeftIcon from '/icons/icon-arrow-right.png';
 import { getTrainingLessons } from '../../../services/internal/requests';
 import { useLoading } from '../../../contexts/loading';
 import { Lesson } from '../../../services/internal/interfaces';
+import PageWrapper from '../../../layouts/pageWrapper';
 
 export default function Training() {
 	const [lessons, setLessons] = useState<Lesson[]>([]);
 	const [lesson, setLesson] = useState<Lesson>();
+	const [loading, setLoading] = useState(true);
 
 	const { setBreadcrumbs } = useHeader();
 	const location = useLocation();
-	const { setLoading } = useLoading();
 	const { training_id = '', lesson_index = 1 } = useParams();
 
 	const [_, base] = location.pathname.split('/');
@@ -60,33 +61,35 @@ export default function Training() {
 		]);
 	}, [lesson]);
 
-	if (!lesson) return <div id="main-wrapper" />;
-
 	return (
-		<TrainingContainer id="main-wrapper">
-			<div className="video-container">
-				<iframe
-					src={`https://www.youtube.com/embed/${lesson.url}`}
-					frameBorder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowFullScreen
-				></iframe>
-			</div>
-
-			<TrainingContentContainer>
-				<div className="description">
-					<h1>{lesson.title}</h1>
-
-					<h2>uma breve descrição sobre o treinamento</h2>
-
-					<p>{lesson.description}</p>
+		<PageWrapper loading={loading}>
+			<TrainingContainer id="main-wrapper">
+				<div className="video-container">
+					<iframe
+						src={`https://www.youtube.com/embed/${lesson?.url}`}
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen
+					></iframe>
 				</div>
-				<div className="progress">
-					<CourseProgress atualLesson={lesson} trainingId={training_id} lessons={lessons} />
-				</div>
-			</TrainingContentContainer>
 
-			{/* <CourseAssets /> */}
-		</TrainingContainer>
+				<TrainingContentContainer>
+					<div className="description">
+						<h1>{lesson?.title}</h1>
+
+						<h2>uma breve descrição sobre o treinamento</h2>
+
+						<p>{lesson?.description}</p>
+					</div>
+					{lesson && (
+						<div className="progress">
+							<CourseProgress atualLesson={lesson} trainingId={training_id} lessons={lessons} />
+						</div>
+					)}
+				</TrainingContentContainer>
+
+				{/* <CourseAssets /> */}
+			</TrainingContainer>
+		</PageWrapper>
 	);
 }

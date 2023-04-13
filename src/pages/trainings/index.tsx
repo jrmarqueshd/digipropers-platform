@@ -10,6 +10,7 @@ import { useLoading } from '../../contexts/loading';
 import ArrowLeftIcon from '/icons/icon-arrow-right.png';
 import { useHeader } from '../../contexts/header';
 import { toast } from 'react-toastify';
+import PageWrapper from '../../layouts/pageWrapper';
 
 const borderColor = {
 	'/fabrica-de-win/treinamento': '#A7CB22',
@@ -19,7 +20,7 @@ const borderColor = {
 
 export default function Trainings() {
 	const [trainings, setTrainings] = useState<Training[]>([]);
-	const { setLoading } = useLoading();
+	const [loading, setLoading] = useState(true);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -53,23 +54,25 @@ export default function Trainings() {
 	}, []);
 
 	return (
-		<TrainingsContainer>
-			{trainings?.map((training, index) => (
-				<Card
-					key={index}
-					onClick={() => navigate(`${location.pathname}/${training.id}/1`)}
-					borderSize="113px"
-					borderColor={(borderColor as any)[location.pathname]}
-					background={FwTrainingsBg}
-					hiddenBorders={['top-left', 'bottom-right']}
-				>
-					<TrainingsCardContent>
-						<h2>{training.name}</h2>
+		<PageWrapper loading={loading}>
+			<TrainingsContainer>
+				{trainings?.map((training, index) => (
+					<Card
+						key={index}
+						onClick={() => navigate(`${location.pathname}/${training.id}/1`)}
+						borderSize="113px"
+						borderColor={(borderColor as any)[location.pathname]}
+						background={FwTrainingsBg}
+						hiddenBorders={['top-left', 'bottom-right']}
+					>
+						<TrainingsCardContent>
+							<h2>{training.name}</h2>
 
-						<p>{training.description}</p>
-					</TrainingsCardContent>
-				</Card>
-			))}
-		</TrainingsContainer>
+							<p>{training.description}</p>
+						</TrainingsCardContent>
+					</Card>
+				))}
+			</TrainingsContainer>
+		</PageWrapper>
 	);
 }

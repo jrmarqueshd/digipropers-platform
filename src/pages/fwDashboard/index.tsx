@@ -8,18 +8,18 @@ import { Live, User } from '../../services/internal/interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
 import { ProductSelected } from '../dashboard/interfaces';
 import { useLoading } from '../../contexts/loading';
+import PageWrapper from '../../layouts/pageWrapper';
 
 export function FwDashboard() {
 	const [live, setLive] = useState<Live>();
+	const [loading, setLoading] = useState(true);
 
-	const { setLoading: setLoadingGlobal } = useLoading();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		setLoadingGlobal(true);
 		async function fetch() {
 			const response = await getLive();
-			setLoadingGlobal(false);
+			setLoading(false);
 			if (response) {
 				setLive(response);
 			}
@@ -38,26 +38,28 @@ export function FwDashboard() {
 	};
 
 	return (
-		<FwDashboardContainer>
-			<nav className="menu-items">
-				{cardsMenu.map(({ background, disabled, goTo, title, borderColor, external }) => (
-					<Card
-						onClick={() => !external && navigate('/fabrica-de-win' + goTo)}
-						borderSize="84px"
-						borderColor={borderColor}
-						background={background}
-						disabled={disabled || (title === 'Ao Vivo' && !live)}
-						hiddenBorders={['top-left', 'bottom-right']}
-					>
-						<FwDashboardCardContent
-							{...(external ? { as: 'a', href: goTo + getDynamicGoto(title), target: '_blank' } : {})}
+		<PageWrapper loading={loading}>
+			<FwDashboardContainer>
+				<nav className="menu-items">
+					{cardsMenu.map(({ background, disabled, goTo, title, borderColor, external }) => (
+						<Card
+							onClick={() => !external && navigate('/fabrica-de-win' + goTo)}
+							borderSize="84px"
+							borderColor={borderColor}
+							background={background}
+							disabled={disabled || (title === 'Ao Vivo' && !live)}
+							hiddenBorders={['top-left', 'bottom-right']}
 						>
-							<h2>{title}</h2>
-							<h3>{title === 'Ao Vivo' && !live ? 'Em breve' : 'Acessar'}</h3>
-						</FwDashboardCardContent>
-					</Card>
-				))}
-			</nav>
-		</FwDashboardContainer>
+							<FwDashboardCardContent
+								{...(external ? { as: 'a', href: goTo + getDynamicGoto(title), target: '_blank' } : {})}
+							>
+								<h2>{title}</h2>
+								<h3>{title === 'Ao Vivo' && !live ? 'Em breve' : 'Acessar'}</h3>
+							</FwDashboardCardContent>
+						</Card>
+					))}
+				</nav>
+			</FwDashboardContainer>
+		</PageWrapper>
 	);
 }

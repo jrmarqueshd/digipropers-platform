@@ -6,24 +6,24 @@ import { useEffect, useState } from 'react';
 import { getProducts } from '../../services/internal/requests';
 import { Product } from '../../services/internal/interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
-import { useLoading } from '../../contexts/loading';
 import { useAuth } from '../../contexts/auth';
+import PageWrapper from '../../layouts/pageWrapper';
 
 export function Dashboard() {
 	const [products, setProducts] = useState<Product[]>([]);
+	const [loading, setLoading] = useState(false);
 
 	const navigate = useNavigate();
-	const { setLoading: setLoadingGlobal } = useLoading();
 	const auth = useAuth();
 
 	useEffect(() => {
 		manageStorage().remove('STORAGE_PRODUCT_SELECTED');
 
 		async function fetch() {
-			setLoadingGlobal(true);
+			setLoading(true);
 			const response = await getProducts();
 
-			setLoadingGlobal(false);
+			setLoading(false);
 
 			if (!response) return auth.signout();
 
@@ -34,42 +34,44 @@ export function Dashboard() {
 	}, []);
 
 	return (
-		<DashboardContainer>
-			<div>
-				<h2>Um nova era de</h2>
-				<h1>Operações financeiras automatizadas</h1>
-			</div>
+		<PageWrapper loading={loading}>
+			<DashboardContainer>
+				<div>
+					<h2>Um nova era de</h2>
+					<h1>Operações financeiras automatizadas</h1>
+				</div>
 
-			<nav className="menu-items">
-				{factoryProductsList(products).map(
-					({ id, background, disabled, goTo, logo, borderColor, unavailable, name }) => (
-						<Card
-							onClick={() => {
-								manageStorage().set('STORAGE_PRODUCT_SELECTED', {
-									id,
-									name,
-									background,
-									disabled,
-									goTo,
-									logo,
-									borderColor,
-									unavailable,
-								});
-								navigate(goTo);
-							}}
-							borderSize="84px"
-							borderColor={borderColor}
-							background={background}
-							disabled={disabled || unavailable}
-						>
-							<DashboardCardContent>
-								<img src={logo} alt="logo" />
-								<h3>{unavailable ? 'Em breve' : 'Acessar'}</h3>
-							</DashboardCardContent>
-						</Card>
-					),
-				)}
-			</nav>
-		</DashboardContainer>
+				<nav className="menu-items">
+					{factoryProductsList(products).map(
+						({ id, background, disabled, goTo, logo, borderColor, unavailable, name }) => (
+							<Card
+								onClick={() => {
+									manageStorage().set('STORAGE_PRODUCT_SELECTED', {
+										id,
+										name,
+										background,
+										disabled,
+										goTo,
+										logo,
+										borderColor,
+										unavailable,
+									});
+									navigate(goTo);
+								}}
+								borderSize="84px"
+								borderColor={borderColor}
+								background={background}
+								disabled={disabled || unavailable}
+							>
+								<DashboardCardContent>
+									<img src={logo} alt="logo" />
+									<h3>{unavailable ? 'Em breve' : 'Acessar'}</h3>
+								</DashboardCardContent>
+							</Card>
+						),
+					)}
+				</nav>
+			</DashboardContainer>
+		</PageWrapper>
 	);
 }
