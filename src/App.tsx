@@ -1,3 +1,4 @@
+import WhatsappButton from './components/whatsappButton';
 import { AuthProvider } from './contexts/auth';
 import { HeaderProvider } from './contexts/header';
 import { HeroProvider } from './contexts/hero';
@@ -15,6 +16,7 @@ function App() {
 					<HeroProvider>
 						<RoutesProvider />
 						<ToastContainer />
+						<WhatsappButton />
 					</HeroProvider>
 				</HeaderProvider>
 			</AuthProvider>

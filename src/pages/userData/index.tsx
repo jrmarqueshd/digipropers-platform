@@ -83,7 +83,7 @@ export default function UserData() {
 			<UserDataSeparator />
 
 			<Input id="balance" type="text" label="Seu saldo" disabled value="R$ 5000" />
-			<Button as="a" href={links.WHATSAPP_DEPOSIT_LINK} secondary>
+			<Button as="a" href={links.WHATSAPP_DEPOSIT_LINK} target="_blank" secondary>
 				Adicionar saldo
 			</Button>
 
