@@ -1,6 +1,6 @@
 import { slugify } from '../../commons/helpers/slugify';
 import { Product, UserProduct } from '../../services/internal/interfaces';
-import { CardsMenu } from './interfaces';
+import { ProductSelected } from './interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
 import { getProductAssets, productsAvailable } from '../../commons/helpers/getProductsAssets';
 
@@ -26,5 +26,5 @@ export const factoryProductsList = (products: Product[]) => {
 		});
 
 		return formattedProduct;
-	}) as CardsMenu[];
+	}) as ProductSelected[];
 };

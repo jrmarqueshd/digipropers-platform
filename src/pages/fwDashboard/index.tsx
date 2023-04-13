@@ -4,7 +4,9 @@ import { cardsMenu } from './helpers';
 import { FwDashboardCardContent, FwDashboardContainer } from './styles';
 import { useEffect, useState } from 'react';
 import { getLive } from '../../services/internal/requests';
-import { Live } from '../../services/internal/interfaces';
+import { Live, User } from '../../services/internal/interfaces';
+import manageStorage from '../../commons/helpers/manageStorage';
+import { ProductSelected } from '../dashboard/interfaces';
 
 export function FwDashboard() {
 	const [live, setLive] = useState<Live>();
@@ -22,6 +24,15 @@ export function FwDashboard() {
 		fetch();
 	}, []);
 
+	const getDynamicGoto = (title: string) => {
+		const userToken = manageStorage().get('STORAGE_TOKEN_KEY') as string;
+		const product = manageStorage().get('STORAGE_PRODUCT_SELECTED') as ProductSelected;
+
+		if (title.includes('operações')) return `?pid=${product.id}&ut=${userToken}`;
+
+		return '';
+	};
+
 	return (
 		<FwDashboardContainer>
 			<nav className="menu-items">
@@ -34,9 +45,11 @@ export function FwDashboard() {
 						disabled={disabled || (title === 'Ao Vivo' && !live)}
 						hiddenBorders={['top-left', 'bottom-right']}
 					>
-						<FwDashboardCardContent {...(external ? { as: 'a', href: goTo, target: '_blank' } : {})}>
+						<FwDashboardCardContent
+							{...(external ? { as: 'a', href: goTo + getDynamicGoto(title), target: '_blank' } : {})}
+						>
 							<h2>{title}</h2>
-							<h3>{!live ? 'Em breve' : 'Acessar'}</h3>
+							<h3>{title === 'Ao Vivo' && !live ? 'Em breve' : 'Acessar'}</h3>
 						</FwDashboardCardContent>
 					</Card>
 				))}

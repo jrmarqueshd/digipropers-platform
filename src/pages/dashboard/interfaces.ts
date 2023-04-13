@@ -1,4 +1,4 @@
-export interface CardsMenu {
+export interface ProductSelected {
 	goTo: string;
 	logo: string;
 	background: string;

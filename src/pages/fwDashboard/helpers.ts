@@ -6,7 +6,7 @@ import FwTrainingsBg from '/images/fw-trainings-bg.png';
 
 export const cardsMenu = [
 	{
-		goTo: '/',
+		goTo: import.meta.env.VITE_APP_FW_OPERATION_URL || '/',
 		title: 'Painel de operações',
 		background: FwOperationBg,
 		disabled: false,
