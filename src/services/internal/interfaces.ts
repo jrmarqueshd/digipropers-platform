@@ -34,3 +34,26 @@ export interface Live {
 	created_at: string;
 	updated_at: string;
 }
+
+export interface Training {
+	id: string;
+	productId: string;
+	name: string;
+	description: string;
+	status: 'ACTIVE' | 'INACTIVE';
+	created_at: string;
+	updated_at: string;
+}
+
+export interface Lesson {
+	id: string;
+	trainingModuleId: string;
+	index: number;
+	thumbnail: string;
+	title: string;
+	subTitle: string;
+	description: string;
+	url: string;
+	created_at: string;
+	updated_at: string;
+}

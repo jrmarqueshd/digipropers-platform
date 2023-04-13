@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import api from '.';
-import { Live, LoginData, Product, User, UserProduct } from './interfaces';
+import { Lesson, Live, LoginData, Product, Training, User, UserProduct } from './interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
 
 export const loginSession = async (data: LoginData) => {
@@ -78,6 +78,30 @@ export const getLive = async () => {
 		const response = await api.get(`lives/${productSelected.id}`);
 
 		return response.data?.[0] as Live;
+	} catch {
+		toast.error('Ocorreu um erro! Por favor, tente novamente.');
+	}
+};
+
+export const getTrainings = async () => {
+	const productSelected = manageStorage().get('STORAGE_PRODUCT_SELECTED') as Product;
+
+	try {
+		const response = await api.get(`trainings/${productSelected.id}`);
+
+		return response.data as Training[];
+	} catch {
+		toast.error('Ocorreu um erro! Por favor, tente novamente.');
+	}
+};
+
+export const getTrainingLessons = async () => {
+	const productSelected = manageStorage().get('STORAGE_PRODUCT_SELECTED') as Product;
+
+	try {
+		const response = await api.get(`lessons/${productSelected.id}`);
+
+		return response.data as Lesson[];
 	} catch {
 		toast.error('Ocorreu um erro! Por favor, tente novamente.');
 	}

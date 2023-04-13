@@ -15,7 +15,7 @@ export const generateServicePages = ({
 	logo,
 	element,
 	title,
-}: Pick<Page, 'logo' | 'element' | 'title'> & { basePath: `/${string}` }) => {
+}: Pick<Page, 'logo' | 'element' | 'title'> & { basePath: `/${string}` }): any => {
 	return [
 		{
 			path: basePath,
@@ -26,7 +26,7 @@ export const generateServicePages = ({
 			title: title,
 		},
 		{
-			path: `${basePath}/treinamentos`,
+			path: `${basePath}/treinamento`,
 			element: Trainings,
 			layout: LayoutPlatform,
 			logo: logo,
@@ -34,7 +34,7 @@ export const generateServicePages = ({
 			title: title,
 		},
 		{
-			path: `${basePath}/treinamentos/:training_id/:lesson`,
+			path: `${basePath}/treinamento/:training_id/:lesson_index`,
 			element: Training,
 			logo: logo,
 			title: title,

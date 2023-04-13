@@ -37,7 +37,7 @@ export const cardsMenu = [
 		external: true,
 	},
 	{
-		goTo: '/treinamentos',
+		goTo: '/treinamento',
 		title: 'treinamento',
 		background: FwTrainingsBg,
 		disabled: false,
