@@ -22,7 +22,7 @@ export default function CourseProgress({
 	const [_, base] = location.pathname.split('/');
 
 	const progress = useMemo(() => {
-		return (atualLesson.index / lessons.length) * 100;
+		return ((atualLesson.indice || atualLesson.index) / lessons.length) * 100;
 	}, [atualLesson]);
 
 	return (
@@ -33,7 +33,7 @@ export default function CourseProgress({
 				<div className="progress-statistics">
 					<h3>{progress}% concluído</h3>
 					<span>
-						{atualLesson.index} de {lessons.length} aulas
+						{atualLesson.indice || atualLesson.index || 0} de {lessons.length} aulas
 					</span>
 				</div>
 			</div>
@@ -46,11 +46,11 @@ export default function CourseProgress({
 				{lessons.map((lesson) => (
 					<Link
 						key={lesson.id}
-						to={`/${base}/treinamento/${trainingId}/${lesson.index}`}
-						className={`chapter-item ${lesson.index <= atualLesson.index ? 'completed' : ''}`}
+						to={`/${base}/treinamento/${trainingId}/${lesson.indice || lesson.index}`}
+						className={`chapter-item ${(lesson.indice || lesson.index) <= atualLesson.index ? 'completed' : ''}`}
 					>
 						<h5>
-							{lesson.index}. {textEllipsis(lesson.title, !isTablet ? 32 : 50)}
+							{lesson.indice || lesson.index}. {textEllipsis(lesson.title, !isTablet ? 32 : 50)}
 						</h5>
 					</Link>
 				))}

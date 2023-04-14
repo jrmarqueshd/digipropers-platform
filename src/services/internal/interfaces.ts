@@ -57,6 +57,7 @@ export interface Lesson {
 	id: string;
 	trainingModuleId: string;
 	index: number;
+	indice?: number;
 	thumbnail: string;
 	title: string;
 	subTitle: string;

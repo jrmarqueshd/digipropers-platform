@@ -39,8 +39,8 @@ export default function Training() {
 
 			if (!response) return navigate(`/${base}/treinamento`);
 
-			setLessons(response.sort((a, b) => a.index - b.index));
-			setLesson(response.find((data) => data.index === Number(lesson_index)));
+			setLessons(response.sort((a, b) => (a.indice || a.index) - (b.indice || b.index)));
+			setLesson(response.find((data) => (data.indice || data.index) === Number(lesson_index)));
 			setLoading(false);
 		}
 
