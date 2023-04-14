@@ -69,7 +69,7 @@ export default function Trainings() {
 						<TrainingsCardContent>
 							<h2>{training.name}</h2>
 
-							<p>{training.description}</p>
+							{/* <p>{training?.description}</p> */}
 						</TrainingsCardContent>
 					</Card>
 				))}
