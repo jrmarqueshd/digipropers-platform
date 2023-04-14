@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import api from '.';
-import { Lesson, Live, LoginData, Product, Training, User, UserProduct } from './interfaces';
+import { Lesson, Live, LoginData, Product, Training, TrainingModule, User, UserProduct } from './interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
 
 export const loginSession = async (data: LoginData) => {
@@ -8,7 +8,8 @@ export const loginSession = async (data: LoginData) => {
 		const response = await api.post('/sessions', { ...data });
 
 		return response.data.accessToken as string;
-	} catch {
+	} catch (error) {
+		console.log(error);
 		toast.error('Ocorreu um erro! Por favor, tente novamente.');
 	}
 };
@@ -53,7 +54,7 @@ export const getProducts = async () => {
 	try {
 		const response = await api.get(`/products`);
 
-		return response.data.product as Product[];
+		return response.data.products as Product[];
 	} catch {
 		toast.error('Ocorreu um erro! Por favor, tente novamente.');
 	}
@@ -65,7 +66,7 @@ export const getUserProducts = async () => {
 
 		manageStorage().set('STORAGE_USER_PRODUCTS', response.data.product);
 
-		return response.data.product as UserProduct[];
+		return response.data.products as UserProduct[];
 	} catch {
 		toast.error('Ocorreu um erro! Por favor, tente novamente.');
 	}
@@ -89,7 +90,18 @@ export const getTrainings = async () => {
 	try {
 		const response = await api.get(`trainings/${productSelected.id}`);
 
-		return response.data as Training[];
+		return response.data?.[0] as Training;
+	} catch {
+		toast.error('Ocorreu um erro! Por favor, tente novamente.');
+	}
+};
+
+export const getTrainingModule = async () => {
+	try {
+		const training = await getTrainings();
+		const response = await api.get(`trainingModules/${training?.id}`);
+
+		return response.data as TrainingModule[];
 	} catch {
 		toast.error('Ocorreu um erro! Por favor, tente novamente.');
 	}

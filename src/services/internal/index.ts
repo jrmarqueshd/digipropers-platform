@@ -10,7 +10,7 @@ api.interceptors.request.use(
 	(config) => {
 		const Authorization = manageStorage().get('STORAGE_TOKEN_KEY');
 
-		const urlToIgnoreAuth = ['/login'];
+		const urlToIgnoreAuth = ['/sessions'];
 
 		if (urlToIgnoreAuth.every((url) => url !== config.url) && Authorization)
 			Object.assign(config?.headers || {}, { Authorization: `Bearer ${Authorization}` });
@@ -29,7 +29,9 @@ api.interceptors.response.use(
 		return response;
 	},
 	(error) => {
-		if (error.response.status === 401) {
+		const urlToIgnoreAuth = ['/sessions'];
+
+		if (!urlToIgnoreAuth.includes(error.config.url) && error.response.status === 401) {
 			localStorage.clear();
 			window.location.replace('/login');
 			return;

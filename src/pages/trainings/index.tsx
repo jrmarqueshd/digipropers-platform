@@ -2,10 +2,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Card from '../../components/card';
 import { TrainingsCardContent, TrainingsContainer } from './styles';
 import { useEffect, useState } from 'react';
-import { getTrainings } from '../../services/internal/requests';
-import { Training } from '../../services/internal/interfaces';
+import { getTrainingModule } from '../../services/internal/requests';
+import { TrainingModule } from '../../services/internal/interfaces';
 import FwTrainingsBg from '/images/fw-trainings-bg.png';
-import { useLoading } from '../../contexts/loading';
 
 import ArrowLeftIcon from '/icons/icon-arrow-right.png';
 import { useHeader } from '../../contexts/header';
@@ -19,25 +18,27 @@ const borderColor = {
 };
 
 export default function Trainings() {
-	const [trainings, setTrainings] = useState<Training[]>([]);
+	const [trainingsModules, setTrainingsModules] = useState<TrainingModule[]>([]);
 	const [loading, setLoading] = useState(true);
 
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { setBreadcrumbs } = useHeader();
 
+	const [_, base] = location.pathname.split('/');
+
 	useEffect(() => {
 		async function fetch() {
 			setLoading(true);
-			const response = await getTrainings();
+			const response = await getTrainingModule();
 
 			if (!response?.length) {
 				toast.info('Nenhum módulo do treinamento disponível');
 
-				return navigate(-1);
+				return navigate(`/${base}`);
 			}
 
-			setTrainings(response);
+			setTrainingsModules(response);
 			setLoading(false);
 		}
 
@@ -56,7 +57,7 @@ export default function Trainings() {
 	return (
 		<PageWrapper loading={loading}>
 			<TrainingsContainer>
-				{trainings?.map((training, index) => (
+				{trainingsModules?.map((training, index) => (
 					<Card
 						key={index}
 						onClick={() => navigate(`${location.pathname}/${training.id}/1`)}

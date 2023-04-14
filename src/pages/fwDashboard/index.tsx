@@ -20,9 +20,8 @@ export function FwDashboard() {
 		async function fetch() {
 			const response = await getLive();
 			setLoading(false);
-			if (response) {
-				setLive(response);
-			}
+			if (!response) return;
+			setLive(response);
 		}
 
 		fetch();

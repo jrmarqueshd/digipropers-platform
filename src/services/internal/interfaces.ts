@@ -45,6 +45,14 @@ export interface Training {
 	updated_at: string;
 }
 
+export interface TrainingModule {
+	id: string;
+	trainingId: string;
+	name: string;
+	created_at: string;
+	updated_at: string;
+}
+
 export interface Lesson {
 	id: string;
 	trainingModuleId: string;

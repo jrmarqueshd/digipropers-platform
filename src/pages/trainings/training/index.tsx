@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 import CourseAssets from '../../../components/courseAssets';
 import CourseProgress from '../../../components/courseProgress';
@@ -19,6 +19,7 @@ export default function Training() {
 
 	const { setBreadcrumbs } = useHeader();
 	const location = useLocation();
+	const navigate = useNavigate();
 	const { training_id = '', lesson_index = 1 } = useParams();
 
 	const [_, base] = location.pathname.split('/');
@@ -36,11 +37,10 @@ export default function Training() {
 
 			const response = await getTrainingLessons();
 
-			if (response) {
-				setLessons(response.sort((a, b) => a.index - b.index));
+			if (!response) return navigate(`/${base}/treinamento`);
 
-				setLesson(response.find((data) => data.index === Number(lesson_index)));
-			}
+			setLessons(response.sort((a, b) => a.index - b.index));
+			setLesson(response.find((data) => data.index === Number(lesson_index)));
 			setLoading(false);
 		}
 

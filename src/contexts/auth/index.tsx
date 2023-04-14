@@ -28,6 +28,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const signin = async (data: LoginData) => {
 		const token = await loginSession(data);
 
+		console.log(token);
+
 		if (!token) return;
 
 		return fakeAuthProvider.signin(token, async () => {
