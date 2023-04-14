@@ -36,10 +36,10 @@ export function Dashboard() {
 	return (
 		<PageWrapper loading={loading}>
 			<DashboardContainer>
-				<div>
+				{/* <div>
 					<h2>Um nova era de</h2>
 					<h1>Operações financeiras automatizadas</h1>
-				</div>
+				</div> */}
 
 				<nav className="menu-items">
 					{factoryProductsList(products).map(
