@@ -2,15 +2,25 @@ import { Link as LinkComponent } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { styles } from '../../constants';
 
-export const HeaderWrapper = styled.header`
+export const HeaderWrapper = styled.header<{ isSticky?: boolean }>`
 	height: auto;
 	padding: 15px;
 	position: relative;
 	z-index: 1001;
+	position: sticky;
+	top: 0;
+	transition: all 150ms ease-in-out;
 
 	@media screen {
 		@media (min-width: ${styles.medias.md}) {
 			padding: 47px 15px;
+
+			${({ isSticky }) =>
+				isSticky &&
+				css`
+					background-color: #222;
+					padding: 8px 15px;
+				`}
 		}
 	}
 `;

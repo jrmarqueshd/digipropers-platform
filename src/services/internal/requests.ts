@@ -64,9 +64,9 @@ export const getUserProducts = async () => {
 	try {
 		const response = await api.get(`/products/user`);
 
-		manageStorage().set('STORAGE_USER_PRODUCTS', response.data.product);
+		manageStorage().set('STORAGE_USER_PRODUCTS', response.data.products || response.data.product);
 
-		return response.data.products as UserProduct[];
+		return response.data.products || (response.data.product as UserProduct[]);
 	} catch {
 		toast.error('Ocorreu um erro! Por favor, tente novamente.');
 	}

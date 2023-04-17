@@ -4,10 +4,9 @@ import { cardsMenu } from './helpers';
 import { FwDashboardCardContent, FwDashboardContainer } from './styles';
 import { useEffect, useState } from 'react';
 import { getLive } from '../../services/internal/requests';
-import { Live, User } from '../../services/internal/interfaces';
+import { Live } from '../../services/internal/interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
 import { ProductSelected } from '../dashboard/interfaces';
-import { useLoading } from '../../contexts/loading';
 import PageWrapper from '../../layouts/pageWrapper';
 
 export function FwDashboard() {
@@ -15,6 +14,25 @@ export function FwDashboard() {
 	const [loading, setLoading] = useState(true);
 
 	const navigate = useNavigate();
+
+	const getDynamicGoto = (title: string) => {
+		const userToken = manageStorage().get('STORAGE_TOKEN_KEY') as string;
+		const product = manageStorage().get('STORAGE_PRODUCT_SELECTED') as ProductSelected;
+
+		if (title.includes('operações')) return `?pid=${product.id}&ut=${userToken}`;
+
+		return '';
+	};
+
+	const openUrl = (url: string, target?: boolean) => {
+		const urlMounted = '/fabrica-de-win' + url;
+
+		if (target) {
+			return window.open(urlMounted, '_blank');
+		}
+
+		navigate(urlMounted);
+	};
 
 	useEffect(() => {
 		async function fetch() {
@@ -27,22 +45,13 @@ export function FwDashboard() {
 		fetch();
 	}, []);
 
-	const getDynamicGoto = (title: string) => {
-		const userToken = manageStorage().get('STORAGE_TOKEN_KEY') as string;
-		const product = manageStorage().get('STORAGE_PRODUCT_SELECTED') as ProductSelected;
-
-		if (title.includes('operações')) return `?pid=${product.id}&ut=${userToken}`;
-
-		return '';
-	};
-
 	return (
 		<PageWrapper loading={loading}>
 			<FwDashboardContainer>
 				<nav className="menu-items">
-					{cardsMenu.map(({ background, disabled, goTo, title, borderColor, external }) => (
+					{cardsMenu.map(({ background, disabled, goTo, title, borderColor, external, target }) => (
 						<Card
-							onClick={() => !external && navigate('/fabrica-de-win' + goTo)}
+							onClick={() => !external && openUrl(goTo, target)}
 							borderSize="84px"
 							borderColor={borderColor}
 							background={background}

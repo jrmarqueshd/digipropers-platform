@@ -25,18 +25,25 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import { useLocation } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 
-export default function Header({ logo, hiddenLogo }: { logo?: string; hiddenLogo?: boolean }) {
-	const isLaptop = useMediaQuery(`(min-width: ${styles.medias.xl})`);
-
+export default function Header({
+	logo,
+	hiddenLogo,
+	isSticky,
+}: {
+	logo?: string;
+	hiddenLogo?: boolean;
+	isSticky?: boolean;
+}) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const location = useLocation();
 
 	const { user, signout } = useAuth();
 	const { breadcrumbs } = useHeader();
+	const isLaptop = useMediaQuery(`(min-width: ${styles.medias.xl})`);
 
 	return (
-		<HeaderWrapper>
+		<HeaderWrapper isSticky={isSticky}>
 			<HeaderContainer>
 				{location.pathname !== '/' && (
 					<HeaderLogoBreadcrumbs>

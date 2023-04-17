@@ -8,6 +8,7 @@ import { Product } from '../../services/internal/interfaces';
 import manageStorage from '../../commons/helpers/manageStorage';
 import { useAuth } from '../../contexts/auth';
 import PageWrapper from '../../layouts/pageWrapper';
+import { toast } from 'react-toastify';
 
 export function Dashboard() {
 	const [products, setProducts] = useState<Product[]>([]);
@@ -25,7 +26,9 @@ export function Dashboard() {
 
 			setLoading(false);
 
-			if (!response) return auth.signout();
+			if (!response) {
+				return auth.signout();
+			}
 
 			setProducts(response);
 		}

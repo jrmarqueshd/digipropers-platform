@@ -67,7 +67,7 @@ export default function Login() {
 				<Checkbox
 					onChange={({ currentTarget }) => setTermAccept(currentTarget.checked)}
 					id="term"
-					label="aceitar termos"
+					label="aceitar termos *"
 				/>
 
 				<Button disabled={!isTermAccept} type="submit" loading={loading}>

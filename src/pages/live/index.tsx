@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useHero } from '../../contexts/hero';
 import { LiveContainer, LiveContentContainer, LiveVideoContainer } from './styles';
@@ -10,7 +10,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getYouTubeLiveInfos } from '../../services/youtube/requests';
 import { Live as LiveType } from '../../services/internal/interfaces';
 import { getLive } from '../../services/internal/requests';
-import { useLoading } from '../../contexts/loading';
 import PageWrapper from '../../layouts/pageWrapper';
 
 export default function Live() {
@@ -22,6 +21,7 @@ export default function Live() {
 	const { setTitle, setIgnoreLogo } = useHero();
 	const location = useLocation();
 	const navigate = useNavigate();
+	const videoRef = useRef(null);
 	const [_, base] = location.pathname.split('/');
 
 	const themeColor = {
@@ -60,16 +60,33 @@ export default function Live() {
 		return () => clearInterval(intervalId);
 	}, []);
 
+	useEffect(() => {
+		const handleRightClick = (event: any) => {
+			if (event.button === 2) {
+				event.preventDefault();
+			}
+		};
+
+		const videoElement = videoRef.current as any;
+
+		videoElement?.addEventListener('click', handleRightClick);
+
+		return () => {
+			videoElement?.removeEventListener('click', handleRightClick);
+		};
+	}, []);
+
 	return (
 		<PageWrapper loading={loading}>
 			<LiveContainer>
 				<LiveVideoContainer>
-					<div className="video-container">
+					<div onMouseDown={console.log} className="video-container">
 						<iframe
 							src={`https://www.youtube.com/embed/${live?.hash}?autoplay=1&controls=0&t${removeDelay}s&rel=0`}
 							frameBorder="0"
 							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 							allowFullScreen
+							ref={videoRef}
 						></iframe>
 					</div>
 					<div className="chat-container">

@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../../components/header';
 import { Container } from './styles';
+import useSticky from '../../hooks/useSticky';
 
 export function Layout({
 	hiddenHeader,
@@ -11,11 +12,15 @@ export function Layout({
 	hiddenHeaderLogo?: boolean;
 	logo?: string;
 }) {
+	const { isSticky, targetElement } = useSticky({ offsetTop: 0 });
+
 	return (
 		<Container>
-			{!hiddenHeader && <Header hiddenLogo={hiddenHeaderLogo} logo={logo} />}
+			{!hiddenHeader && <Header hiddenLogo={hiddenHeaderLogo} logo={logo} isSticky={isSticky} />}
 
-			<Outlet />
+			<div ref={targetElement as any}>
+				<Outlet />
+			</div>
 		</Container>
 	);
 }

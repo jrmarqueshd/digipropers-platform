@@ -3,6 +3,7 @@ import FwLiveBg from '/images/fw-live-bg.png';
 import FwDepositBg from '/images/fw-deposit-bg.png';
 import FwBrokerageBg from '/images/fw-brokerage-bg.png';
 import FwTrainingsBg from '/images/fw-trainings-bg.png';
+import { links } from '../../constants';
 
 export const cardsMenu = [
 	{
@@ -19,9 +20,10 @@ export const cardsMenu = [
 		background: FwLiveBg,
 		disabled: false,
 		borderColor: '#A7CB22',
+		target: true,
 	},
 	{
-		goTo: '/',
+		goTo: links.WHATSAPP_DEPOSIT_LINK,
 		title: 'Depósito e saque',
 		background: FwDepositBg,
 		disabled: false,
