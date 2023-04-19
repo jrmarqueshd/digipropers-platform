@@ -1,10 +1,13 @@
+import { Link } from 'react-router-dom';
 import { TermContainer } from './styles';
 import DgLogo from '/images/dg-logo.png';
 
 export default function Term() {
 	return (
 		<TermContainer>
-			<img src={DgLogo} alt="Digi prosper logo" />
+			<Link className="logo-link" to="/">
+				<img src={DgLogo} alt="Digi prosper logo" />
+			</Link>
 
 			<h1>Termo de Aceite e Uso</h1>
 

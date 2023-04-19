@@ -12,7 +12,7 @@ export const TermContainer = styled.div`
 	margin: 0 auto;
 	padding: 60px 15px;
 
-	img {
+	.logo-link {
 		margin: 0 auto 60px;
 	}
 
