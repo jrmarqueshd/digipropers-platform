@@ -7,6 +7,7 @@ export const ChatContainer = styled.div`
 	border-radius: 5.44928px;
 	padding: 17px 0 13px;
 	width: 100%;
+	height: 100%;
 
 	h3 {
 		font-weight: 700;
@@ -37,7 +38,7 @@ export const ChatMessageContainer = styled.div`
 
 	@media screen {
 		@media (min-width: ${styles.medias.xl}) {
-			height: 430px;
+			max-height: 554px;
 		}
 	}
 `;

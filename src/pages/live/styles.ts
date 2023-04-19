@@ -6,7 +6,7 @@ export const LiveContainer = styled.div`
 	flex-direction: column;
 	min-height: 88vh;
 	width: 100%;
-	max-width: ${styles.containerWidth};
+	max-width: calc(${styles.containerWidth} + 588px);
 	margin: 0 auto;
 `;
 
@@ -41,11 +41,12 @@ export const LiveVideoContainer = styled.div`
 				iframe {
 					aspect-ratio: 16 / 9;
 					width: 100%;
-					height: 536px;
+					height: 668px;
 				}
 			}
 
 			.chat-container {
+				height: 668px;
 				max-width: 368px;
 			}
 		}
@@ -56,7 +57,7 @@ export const LiveContentContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	max-width: ${styles.containerWidth};
+	max-width: calc(${styles.containerWidth} + 588px);
 	width: 100%;
 	margin: 0 auto;
 	padding: 0 0 64px;
@@ -65,7 +66,7 @@ export const LiveContentContainer = styled.div`
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 805.92px;
+		max-width: 1354px;
 		margin-bottom: 39px;
 
 		button {
@@ -100,14 +101,6 @@ export const LiveContentContainer = styled.div`
 			font-size: 18px;
 			line-height: 25px;
 			font-weight: 200;
-		}
-	}
-
-	@media screen {
-		@media (min-width: ${styles.medias.xl}) {
-			.live-assets {
-				max-width: 766px;
-			}
 		}
 	}
 `;
