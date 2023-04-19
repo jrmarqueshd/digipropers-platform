@@ -66,8 +66,10 @@ export const LiveContentContainer = styled.div`
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		flex-direction: column-reverse;
 		max-width: 1354px;
 		margin-bottom: 39px;
+		gap: 16px;
 
 		button {
 			width: 300px;
@@ -101,6 +103,14 @@ export const LiveContentContainer = styled.div`
 			font-size: 18px;
 			line-height: 25px;
 			font-weight: 200;
+		}
+	}
+
+	@media screen {
+		@media (min-width: ${styles.medias.md}) {
+			.live-assets {
+				flex-direction: row;
+			}
 		}
 	}
 `;
