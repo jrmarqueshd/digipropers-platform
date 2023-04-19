@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import WhatsappButton from './components/whatsappButton';
 import { AuthProvider } from './contexts/auth';
 import { HeaderProvider } from './contexts/header';
@@ -9,6 +10,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+	const location = useLocation();
+
 	return (
 		<LoadingProvider>
 			<AuthProvider>
@@ -16,7 +19,7 @@ function App() {
 					<HeroProvider>
 						<RoutesProvider />
 						<ToastContainer />
-						<WhatsappButton />
+						{!['/login'].some((path) => path === location.pathname) && <WhatsappButton />}
 					</HeroProvider>
 				</HeaderProvider>
 			</AuthProvider>
