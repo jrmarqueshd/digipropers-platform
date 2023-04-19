@@ -7,7 +7,7 @@ import DgLogo from '/images/dg-logo.png';
 import Input from '../../components/input';
 import Checkbox from '../../components/checkbox';
 
-import { LoginCard, LoginContainer } from './styles';
+import { LoginCard, LoginContainer, TermLink } from './styles';
 import Button from '../../components/button';
 import { useState } from 'react';
 
@@ -67,7 +67,15 @@ export default function Login() {
 				<Checkbox
 					onChange={({ currentTarget }) => setTermAccept(currentTarget.checked)}
 					id="term"
-					label="aceitar termos *"
+					label={
+						<>
+							Aceitar{' '}
+							<TermLink to="/termos-de-aceite-e-uso" target="_blank">
+								Termos de Aceite e Uso
+							</TermLink>
+							*
+						</>
+					}
 				/>
 
 				<Button disabled={!isTermAccept} type="submit" loading={loading}>

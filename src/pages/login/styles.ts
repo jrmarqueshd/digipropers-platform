@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { styles } from '../../constants';
+import { Link } from 'react-router-dom';
 
 export const LoginContainer = styled.div`
 	display: flex;
@@ -55,5 +56,13 @@ export const LoginCard = styled.form`
 				margin-bottom: 112px;
 			}
 		}
+	}
+`;
+
+export const TermLink = styled(Link)`
+	text-decoration: underline;
+
+	&:hover {
+		color: #fff;
 	}
 `;

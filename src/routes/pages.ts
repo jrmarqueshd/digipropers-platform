@@ -15,12 +15,17 @@ import { B3Dashboard } from '../pages/b3Dashboard';
 import { BpDashboard } from '../pages/bpDashboard';
 import BpOperation from '../pages/bpDashboard/bpOperation';
 import UserData from '../pages/userData';
+import Term from '../pages/term';
 
 const pages: Record<string, Page[]> = {
 	unAuth: [
 		{
 			path: '/login',
 			element: Login,
+		},
+		{
+			path: '/termos-de-aceite-e-uso',
+			element: Term,
 		},
 	],
 	auth: [

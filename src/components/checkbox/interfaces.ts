@@ -1,5 +1,5 @@
 export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-	label: string;
+	label: React.ReactNode;
 	id: string;
 	errorMessage?: string;
 	register?: any;
