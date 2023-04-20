@@ -1,12 +1,7 @@
 import styled, { css } from 'styled-components';
+import { CardProps } from './interfaces';
 
-export const CardContainer = styled.div<{
-	background: string;
-	borderColor: string;
-	borderSize: string;
-	onClick?: VoidFunction;
-	disabled?: boolean;
-}>`
+export const CardContainer = styled.div<Partial<CardProps>>`
 	border-radius: 4px;
 	box-sizing: border-box;
 	border: 1px solid rgba(255, 255, 255, 0.08);
@@ -98,10 +93,9 @@ export const CardContainer = styled.div<{
 			cursor: pointer;
 		`}
 
-	${({ disabled, borderSize }) =>
-		disabled &&
+	${({ disabled, unavailable, borderSize }) =>
+		(disabled || unavailable) &&
 		css`
-			cursor: not-allowed;
 			filter: grayscale(100%);
 
 			.locked-icon {

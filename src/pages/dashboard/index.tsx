@@ -9,6 +9,7 @@ import manageStorage from '../../commons/helpers/manageStorage';
 import { useAuth } from '../../contexts/auth';
 import PageWrapper from '../../layouts/pageWrapper';
 import { toast } from 'react-toastify';
+import { links } from '../../constants';
 
 export function Dashboard() {
 	const [products, setProducts] = useState<Product[]>([]);
@@ -48,6 +49,7 @@ export function Dashboard() {
 					{factoryProductsList(products).map(
 						({ id, background, disabled, goTo, logo, borderColor, unavailable, name }) => (
 							<Card
+								d
 								onClick={() => {
 									manageStorage().set('STORAGE_PRODUCT_SELECTED', {
 										id,
@@ -61,10 +63,14 @@ export function Dashboard() {
 									});
 									navigate(goTo);
 								}}
+								onDisabledClick={() => {
+									window.open(`${links.WHATSAPP_CHAT}?text=Quero conhecer melhor o ${name}.`, '_blank');
+								}}
 								borderSize="84px"
 								borderColor={borderColor}
 								background={background}
-								disabled={disabled || unavailable}
+								disabled={disabled}
+								unavailable={unavailable}
 							>
 								<DashboardCardContent>
 									<img src={logo} alt="logo" />

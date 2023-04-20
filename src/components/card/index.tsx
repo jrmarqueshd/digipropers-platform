@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { CardContainer } from './styles';
 
 import LockIcon from '/icons/lock-icon.png';
+import { CardProps } from './interfaces';
 
 const borders = ['top-right', 'top-left', 'bottom-right', 'bottom-left'];
 
@@ -12,16 +13,10 @@ export default function Card({
 	borderColor,
 	borderSize,
 	onClick,
+	onDisabledClick,
 	disabled,
-}: {
-	background: string;
-	children: React.ReactNode;
-	hiddenBorders?: typeof borders;
-	borderColor: string;
-	borderSize: string;
-	onClick?: VoidFunction;
-	disabled?: boolean;
-}) {
+	unavailable,
+}: CardProps) {
 	const borderToShow = useMemo(() => {
 		return borders.reduce((accum: string[], atual: string) => {
 			if (hiddenBorders?.includes(atual)) return accum;
@@ -34,12 +29,13 @@ export default function Card({
 
 	return (
 		<CardContainer
-			onClick={!disabled ? onClick : undefined}
+			onClick={!disabled ? onClick : onDisabledClick}
 			borderColor={borderColor}
 			className="card"
 			borderSize={borderSize}
 			background={background}
 			disabled={disabled}
+			unavailable={unavailable}
 		>
 			<div className="background" />
 
