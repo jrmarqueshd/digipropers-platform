@@ -11,6 +11,8 @@ export default function RoutesProvider() {
 		return pages.auth.find((page) => matchPath(page.path, location.pathname));
 	}, [location.pathname]);
 
+	console.log(atualAuthPageMemo);
+
 	return (
 		<Routes>
 			<Route element={<Layout hiddenHeader />}>
@@ -33,6 +35,7 @@ export default function RoutesProvider() {
 						hiddenHeader={atualAuthPageMemo?.hiddenHeader}
 						hiddenHeaderLogo={atualAuthPageMemo?.hiddenHeaderLogo}
 						logo={atualAuthPageMemo?.logo}
+						showTelegram={atualAuthPageMemo?.showTelegram}
 					/>
 				}
 			>

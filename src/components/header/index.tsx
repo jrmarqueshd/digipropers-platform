@@ -3,9 +3,7 @@ import HomeIcon from '/icons/home-icon.png';
 import UserIcon from '/icons/user-icon.png';
 import ChevronDown from '/icons/chevron-down.png';
 import UserIconGreen from '/icons/user-icon-green.png';
-import TimeIconGreen from '/icons/time-icon-green.png';
 import { useAuth } from '../../contexts/auth';
-import getPlatformExpiration from '../../commons/helpers/getPlatformExpiration';
 import {
 	HeaderContainer,
 	HeaderLogoBreadcrumbs,
@@ -18,22 +16,15 @@ import {
 	HeaderUserMenuDropdownMenuLink,
 } from './styles';
 import { links, styles } from '../../constants';
-import HeaderCenterRender from './HeaderCenterRender';
 import { useHeader } from '../../contexts/header';
 import { textEllipsis } from '../../commons/helpers/textEllipsis';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { useLocation } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
+import TelegramButton from '../telegramButton';
+import { HeaderProps } from './interfaces';
 
-export default function Header({
-	logo,
-	hiddenLogo,
-	isSticky,
-}: {
-	logo?: string;
-	hiddenLogo?: boolean;
-	isSticky?: boolean;
-}) {
+export default function Header({ logo, hiddenLogo, isSticky, showTelegram }: HeaderProps) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const location = useLocation();
@@ -58,7 +49,8 @@ export default function Header({
 					</HeaderLogoBreadcrumbs>
 				)}
 				<HeaderLogoContainer>
-					<HeaderCenterRender hiddenLogo={hiddenLogo} logo={logo} />
+					{showTelegram && <TelegramButton />}
+					{logo && !hiddenLogo && <img src={logo} alt="Logo" />}
 				</HeaderLogoContainer>
 				<HeaderUserMenu>
 					<OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
@@ -72,13 +64,6 @@ export default function Header({
 								<div className="header-user-menu-dropdown-info">
 									<img src={UserIconGreen} alt="Your Profile" /> {user?.email}
 								</div>
-								{/* <div className="header-user-menu-dropdown-info">
-								<img src={TimeIconGreen} alt="Expiration time" />
-								{getPlatformExpiration(
-									// TODO change fixed ID to dynamic
-									user?.products?.find((product) => product.id === 'd4sa5d1asd61asd'),
-								)}{' '}
-							</div> */}
 
 								<div className="header-user-menu-separator" />
 

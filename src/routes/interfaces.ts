@@ -6,4 +6,5 @@ export type Page = {
 	hiddenHeaderLogo?: boolean;
 	logo?: string;
 	title?: string;
+	showTelegram?: boolean;
 };

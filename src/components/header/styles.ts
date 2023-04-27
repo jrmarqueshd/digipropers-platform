@@ -120,10 +120,22 @@ export const HeaderLogoBreadcrumbsItem = styled(LinkComponent)`
 
 export const HeaderLogoContainer = styled.div`
 	flex: 0.5;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 24px;
 
 	& > img {
 		height: auto;
-		max-width: 157px;
+		max-width: 122px;
+	}
+
+	@media screen {
+		@media (min-width: ${styles.medias.md}) {
+			& > img {
+				max-width: 157px;
+			}
+		}
 	}
 `;
 

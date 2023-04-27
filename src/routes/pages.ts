@@ -40,6 +40,7 @@ const pages: Record<string, Page[]> = {
 			basePath: '/fabrica-de-win',
 			element: FwDashboard,
 			logo: FwLogo,
+			showTelegram: true,
 		}),
 		...generateServicePages({
 			basePath: '/metodo-prosper',
@@ -50,6 +51,7 @@ const pages: Record<string, Page[]> = {
 			basePath: '/b3-pro',
 			element: B3Dashboard,
 			logo: B3Logo,
+			showTelegram: true,
 		}),
 		{
 			path: '/bot-prosper',

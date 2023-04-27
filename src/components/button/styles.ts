@@ -1,10 +1,30 @@
 import styled, { css } from 'styled-components';
+import { ButtonProps } from './interfaces';
 
-export const ButtonContainer = styled.button<{ dynamicColor?: string; secondary?: boolean; loading?: boolean }>`
+export const ButtonContainer = styled.button<ButtonProps>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 15px;
+	gap: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	--size: 15px;
+	padding-top: var(--size);
+	padding-bottom: var(--size);
+
+	${({ size }) =>
+		size === 'small' &&
+		css`
+			--size: 7.5px;
+		`}
+
+	${({ size }) =>
+		size === 'smaller' &&
+		css`
+			--size: 2.5px;
+		`}
+
 	font-weight: 400;
 	font-size: 15.1168px;
 	line-height: 1;
